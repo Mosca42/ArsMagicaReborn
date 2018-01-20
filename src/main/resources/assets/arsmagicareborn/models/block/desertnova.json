@@ -1,0 +1,6 @@
+{
+	"parent": "block/cross",
+    "textures": {
+        "cross": "arsmagicareborn:blocks/desert_nova"
+    }
+}

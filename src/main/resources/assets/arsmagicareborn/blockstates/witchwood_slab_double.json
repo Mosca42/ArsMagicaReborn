@@ -1,0 +1,5 @@
+{
+    "variants": {
+        "slab_type=witchwood": { "model": "arsmagicareborn:witchwood_planks" }
+    }
+}

@@ -1,0 +1,6 @@
+{
+    "parent": "arsmagicareborn:block/rail_raised_sw",
+    "textures": {
+        "rail": "arsmagicareborn:blocks/inlay_straight_gold"
+    }
+}

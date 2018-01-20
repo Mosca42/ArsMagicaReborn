@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "facing=east": { "model": "arsmagicareborn:occulus", "y": 90},
+        "facing=south": { "model": "arsmagicareborn:occulus", "y": 180},
+        "facing=west": { "model": "arsmagicareborn:occulus", "y": 270},
+        "facing=north": { "model": "arsmagicareborn:occulus"}
+    }
+}

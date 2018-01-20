@@ -1,0 +1,9 @@
+{
+    "variants": {
+        "facing=up": { "model": "arsmagicareborn:vinteum_torch" },
+        "facing=east": { "model": "arsmagicareborn:vinteum_torch_wall" },
+        "facing=south": { "model": "arsmagicareborn:vinteum_torch_wall", "y": 90 },
+        "facing=west": { "model": "arsmagicareborn:vinteum_torch_wall", "y": 180 },
+        "facing=north": { "model": "arsmagicareborn:vinteum_torch_wall", "y": 270 }
+    }
+}

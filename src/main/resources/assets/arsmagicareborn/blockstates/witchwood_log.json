@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "axis=y":    { "model": "arsmagicareborn:witchwood_log" },
+        "axis=z":     { "model": "arsmagicareborn:witchwood_log", "x": 90 },
+        "axis=x":     { "model": "arsmagicareborn:witchwood_log", "x": 90, "y": 90 },
+        "axis=none":   { "model": "arsmagicareborn:witchwood_bark" }
+    }
+}

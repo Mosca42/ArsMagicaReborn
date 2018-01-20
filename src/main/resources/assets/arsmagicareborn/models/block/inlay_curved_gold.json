@@ -1,0 +1,6 @@
+{
+    "parent": "arsmagicareborn:block/rail_curved",
+    "textures": {
+        "rail": "arsmagicareborn:blocks/inlay_corner_gold"
+    }
+}

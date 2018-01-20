@@ -1,0 +1,7 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "arsmagicareborn:items/crystal_phylactery_liquidquarter",
+		"layer1": "arsmagicareborn:items/crystal_phylactery"
+    }
+}

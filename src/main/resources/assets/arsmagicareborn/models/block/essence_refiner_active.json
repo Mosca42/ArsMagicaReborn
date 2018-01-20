@@ -1,0 +1,12 @@
+{
+	"parent": "block/cube",
+    "textures": {
+        "up": "arsmagicareborn:blocks/essence_refiner_top",
+        "down": "arsmagicareborn:blocks/essence_refiner_side",
+        "north": "arsmagicareborn:blocks/essence_refiner_front_active",
+        "east": "arsmagicareborn:blocks/essence_refiner_side",
+        "south": "arsmagicareborn:blocks/essence_refiner_side",
+        "west": "arsmagicareborn:blocks/essence_refiner_side",
+        "particle": "arsmagicareborn:blocks/essence_refiner_side"
+    }
+}

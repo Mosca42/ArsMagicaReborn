@@ -1,0 +1,9 @@
+{
+    "variants": {
+		"ore_type=vinteum": { "model": "arsmagicareborn:ore_vinteum"},
+		"ore_type=chimerite": { "model": "arsmagicareborn:ore_chimerite"},
+		"ore_type=bluetopaz": { "model": "arsmagicareborn:ore_bluetopaz"},
+		"ore_type=moonstone": { "model": "arsmagicareborn:ore_moonstone"},
+		"ore_type=sunstone": { "model": "arsmagicareborn:ore_sunstone"}
+    }
+}

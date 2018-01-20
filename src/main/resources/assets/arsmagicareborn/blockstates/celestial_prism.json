@@ -1,0 +1,13 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"custom": {
+		},
+		"model": "arsmagicareborn:scaleup"
+	},
+	"variants": {
+		"normal": [{}],
+		"inventory": [{"submodel":"arsmagicareborn:celestial_prism_cullface.json"}],
+		"facing": {"south":{}, "east":{}, "north":{}, "west":{}}
+	}
+}

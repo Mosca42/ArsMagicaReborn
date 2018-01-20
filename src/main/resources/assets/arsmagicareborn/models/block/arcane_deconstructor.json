@@ -1,0 +1,12 @@
+{
+	"parent": "block/cube",
+    "textures": {
+        "up": "arsmagicareborn:blocks/deconstruction_table_top",
+        "down": "arsmagicareborn:blocks/deconstruction_table_bottom",
+        "north": "arsmagicareborn:blocks/deconstruction_table_front",
+        "east": "arsmagicareborn:blocks/deconstruction_table_side",
+        "south": "arsmagicareborn:blocks/deconstruction_table_side",
+        "west": "arsmagicareborn:blocks/deconstruction_table_side",
+        "particle": "arsmagicareborn:blocks/deconstruction_table_side"
+    }
+}

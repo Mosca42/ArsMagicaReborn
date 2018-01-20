@@ -1,0 +1,12 @@
+{
+	"parent": "block/cube",
+    "textures": {
+        "up": "arsmagicareborn:blocks/mana_drain_top",
+        "down": "arsmagicareborn:blocks/mana_drain_bottom",
+        "north": "arsmagicareborn:blocks/mana_drain_side",
+        "east": "arsmagicareborn:blocks/mana_drain_side",
+        "south": "arsmagicareborn:blocks/mana_drain_side",
+        "west": "arsmagicareborn:blocks/mana_drain_side",
+        "particle": "arsmagicareborn:blocks/mana_drain_side"
+    }
+}

@@ -1,0 +1,15 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"model": "forge:fluid"
+	},
+	"variants": {
+		"purified_liquid_essence": [
+			{
+				"custom": {
+					"fluid": "purified_liquid_essence"
+				}
+			}
+		]
+	}
+}

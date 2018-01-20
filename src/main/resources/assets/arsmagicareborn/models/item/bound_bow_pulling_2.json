@@ -1,0 +1,6 @@
+{
+    "parent": "arsmagicareborn:item/bound_bow",
+    "textures": {
+        "layer0": "arsmagicareborn:items/bound_bow_pulling_2"
+    }
+}

@@ -1,0 +1,12 @@
+{
+	"variants": {
+		"facing=north,hidden=false": {"model":"arsmagicareborn:particle_emitter"},
+		"facing=south,hidden=false": {"model":"arsmagicareborn:particle_emitter"},
+		"facing=east,hidden=false": {"model":"arsmagicareborn:particle_emitter"},
+		"facing=west,hidden=false": {"model":"arsmagicareborn:particle_emitter"},
+		"facing=north,hidden=true": {"model":"arsmagicareborn:null"},
+		"facing=south,hidden=true": {"model":"arsmagicareborn:null"},
+		"facing=east,hidden=true": {"model":"arsmagicareborn:null"},
+		"facing=west,hidden=true": {"model":"arsmagicareborn:null"}
+	}
+}

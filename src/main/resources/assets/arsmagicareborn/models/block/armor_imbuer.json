@@ -1,0 +1,12 @@
+{
+	"parent": "block/cube",
+    "textures": {
+        "up": "arsmagicareborn:blocks/armor_infuser_top",
+		"down": "arsmagicareborn:blocks/armor_infuser_bottom",
+		"north": "arsmagicareborn:blocks/armor_infuser_side",
+		"east": "arsmagicareborn:blocks/armor_infuser_side",
+		"south": "arsmagicareborn:blocks/armor_infuser_side",
+		"west": "arsmagicareborn:blocks/armor_infuser_side",
+		"particle": "arsmagicareborn:blocks/armor_infuser_side"
+    }
+}

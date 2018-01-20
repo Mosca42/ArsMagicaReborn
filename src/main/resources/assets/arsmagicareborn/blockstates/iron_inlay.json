@@ -1,0 +1,14 @@
+{
+    "variants": {
+        "shape=north_south": { "model": "arsmagicareborn:inlay_flat_iron" },
+        "shape=east_west": { "model": "arsmagicareborn:inlay_flat_iron", "y": 90 },
+        "shape=ascending_east": { "model": "arsmagicareborn:inlay_raised_ne_iron", "y": 90 },
+        "shape=ascending_west": { "model": "arsmagicareborn:inlay_raised_sw_iron", "y": 90 },
+        "shape=ascending_north": { "model": "arsmagicareborn:inlay_raised_ne_iron" },
+        "shape=ascending_south": { "model": "arsmagicareborn:inlay_raised_sw_iron" },
+        "shape=south_east": { "model": "arsmagicareborn:inlay_curved_iron" },
+        "shape=south_west": { "model": "arsmagicareborn:inlay_curved_iron", "y": 90 },
+        "shape=north_west": { "model": "arsmagicareborn:inlay_curved_iron", "y": 180 },
+        "shape=north_east": { "model": "arsmagicareborn:inlay_curved_iron", "y": 270 }
+    }
+}

@@ -1,0 +1,9 @@
+{
+    "variants": {
+		"block_type=vinteum": { "model": "arsmagicareborn:block_vinteum"},
+		"block_type=chimerite": { "model": "arsmagicareborn:block_chimerite"},
+		"block_type=bluetopaz": { "model": "arsmagicareborn:block_bluetopaz"},
+		"block_type=moonstone": { "model": "arsmagicareborn:block_moonstone"},
+		"block_type=sunstone": { "model": "arsmagicareborn:block_sunstone"}
+    }
+}

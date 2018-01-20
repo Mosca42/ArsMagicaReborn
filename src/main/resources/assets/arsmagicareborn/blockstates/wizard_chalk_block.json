@@ -1,0 +1,28 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"model": "arsmagicareborn:rune",
+		"uvlock": true
+	},
+	"variants": {
+		"variant": {
+			0:{"textures":{"all":"arsmagicareborn:blocks/wizardchalk/WizardChalk1"}},
+			1:{"textures":{"all":"arsmagicareborn:blocks/wizardchalk/WizardChalk2"}},
+			2:{"textures":{"all":"arsmagicareborn:blocks/wizardchalk/WizardChalk3"}},
+			3:{"textures":{"all":"arsmagicareborn:blocks/wizardchalk/WizardChalk4"}},
+			4:{"textures":{"all":"arsmagicareborn:blocks/wizardchalk/WizardChalk5"}},
+			5:{"textures":{"all":"arsmagicareborn:blocks/wizardchalk/WizardChalk6"}},
+			6:{"textures":{"all":"arsmagicareborn:blocks/wizardchalk/WizardChalk7"}},
+			7:{"textures":{"all":"arsmagicareborn:blocks/wizardchalk/WizardChalk8"}},
+			8:{"textures":{"all":"arsmagicareborn:blocks/wizardchalk/WizardChalk9"}},
+			9:{"textures":{"all":"arsmagicareborn:blocks/wizardchalk/WizardChalk10"}},
+			10:{"textures":{"all":"arsmagicareborn:blocks/wizardchalk/WizardChalk11"}},
+			11:{"textures":{"all":"arsmagicareborn:blocks/wizardchalk/WizardChalk12"}},
+			12:{"textures":{"all":"arsmagicareborn:blocks/wizardchalk/WizardChalk13"}},
+			13:{"textures":{"all":"arsmagicareborn:blocks/wizardchalk/WizardChalk14"}},
+			14:{"textures":{"all":"arsmagicareborn:blocks/wizardchalk/WizardChalk15"}},
+			15:{"textures":{"all":"arsmagicareborn:blocks/wizardchalk/WizardChalk16"}}
+		},
+		"inventory": [{"textures":{"all":"arsmagicareborn:blocks/wizardchalk/WizardChalk1"}}]
+	}
+}

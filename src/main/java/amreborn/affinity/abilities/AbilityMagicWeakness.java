@@ -1,0 +1,32 @@
+package amreborn.affinity.abilities;
+
+import amreborn.ArsMagicaReborn;
+import amreborn.api.affinity.AbstractAffinityAbility;
+import amreborn.api.affinity.Affinity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
+
+public class AbilityMagicWeakness extends AbstractAffinityAbility {
+
+	public AbilityMagicWeakness() {
+		super(new ResourceLocation(ArsMagicaReborn.MODID, "magicweakness"));
+	}
+
+	@Override
+	public float getMinimumDepth() {
+		return 0.25f;
+	}
+
+	@Override
+	public Affinity getAffinity() {
+		return Affinity.ARCANE;
+	}
+	
+	@Override
+	public void applyHurt(EntityPlayer player, LivingHurtEvent event, boolean isAttacker) {
+		if (!isAttacker) {
+			event.setAmount(event.getAmount() * 1.1F);
+		}
+	}
+}
