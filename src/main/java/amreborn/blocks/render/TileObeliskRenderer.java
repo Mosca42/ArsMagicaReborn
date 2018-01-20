@@ -88,8 +88,6 @@ public class TileObeliskRenderer extends TileEntitySpecialRenderer<TileEntityObe
 			Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelRenderer().renderModel(te.getWorld(), getBakedModel(te), te.getWorld().getBlockState(te.getPos()), te.getPos(), tessellator.getBuffer(), false);
 		else {
 			Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelRenderer().renderModel(Minecraft.getMinecraft().world, getBakedModel(te), BlockDefs.obelisk.getDefaultState(), new BlockPos(0, 0, 0), tessellator.getBuffer(), false);
-			GlStateManager.scale(0.5, 0.5, 0.5);
-
 		}
 			tessellator.draw();
 
