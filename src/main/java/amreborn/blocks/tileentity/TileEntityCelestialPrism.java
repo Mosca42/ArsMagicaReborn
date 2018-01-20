@@ -143,7 +143,7 @@ public class TileEntityCelestialPrism extends TileEntityObelisk implements IMult
 		}
 
 		if (onlyChargeAtNight == isNight()){
-			PowerNodeRegistry.For(this.world).insertPower(this, PowerTypes.LIGHT, 0.25f * powerMultiplier);
+			PowerNodeRegistry.For(this.world).insertPower(this, PowerTypes.MANA, 0.25f * powerMultiplier);
 			if (world.isRemote){
 
 				if (particleCounter++ % (ArsMagicaReborn.config.FullGFX() ? 60 : ArsMagicaReborn.config.NoGFX() ? 180 : 120) == 0){
@@ -173,12 +173,12 @@ public class TileEntityCelestialPrism extends TileEntityObelisk implements IMult
 
 	@Override
 	public boolean canProvidePower(PowerTypes type){
-		return type == PowerTypes.LIGHT;
+		return type == PowerTypes.MANA;
 	}
 
 	@Override
 	public List<PowerTypes> getValidPowerTypes(){
-		return Lists.newArrayList(PowerTypes.LIGHT);
+		return Lists.newArrayList(PowerTypes.MANA);
 	}
 
 	@Override

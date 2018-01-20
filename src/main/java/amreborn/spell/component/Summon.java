@@ -79,7 +79,7 @@ public class Summon extends SpellComponent {
 	public Object[] getRecipe() {
 		// Chimerite, purified vinteum, blue orchid, monster focus, any filled crystal
 		// phylactery, 1500 dark power
-		return new Object[] { new ItemStack(ItemDefs.itemOre, 1, ItemOre.META_CHIMERITE), new ItemStack(ItemDefs.itemOre, 1, ItemOre.META_PURIFIED_VINTEUM), BlockDefs.cerublossom, ItemDefs.mobFocus, new ItemStack(ItemDefs.crystalPhylactery, 1, ItemCrystalPhylactery.META_FULL), "E:" + PowerTypes.DARK.ID(), 1500 };
+		return new Object[] { new ItemStack(ItemDefs.itemOre, 1, ItemOre.META_CHIMERITE), new ItemStack(ItemDefs.itemOre, 1, ItemOre.META_PURIFIED_VINTEUM), BlockDefs.cerublossom, ItemDefs.mobFocus, new ItemStack(ItemDefs.crystalPhylactery, 1, ItemCrystalPhylactery.META_FULL), "E:" + PowerTypes.MANA.ID(), 1500 };
 	}
 
 	public void setSummonType(NBTTagCompound stack, ItemStack phylacteryStack) {

@@ -20,8 +20,7 @@ import net.minecraft.util.EnumFacing;
 public class TileEntityOtherworldAura extends TileEntityAMPower{
 
 	private ArrayList<PowerTypes> valid = Lists.newArrayList(
-			PowerTypes.DARK,
-			PowerTypes.NEUTRAL
+			PowerTypes.MANA
 	);
 
 	private ArrayList<AMVector3> nearbyInventories;

@@ -259,9 +259,7 @@ itemGroup.am2.blocks=Ars Magica 2 Blocks
 itemGroup.am2.items=Ars Magica 2 Items
 
 etherium.any.name=Any
-etherium.light.name=Light
-etherium.dark.name=Dark
-etherium.neutral.name=Neutral
+etherium.mana.name=Mana
 
 enchantment.magicresist=Magic Resistance
 enchantment.soulbound=Soulbound
@@ -698,7 +696,7 @@ am2.tooltip.charge=Charge
 am2.tooltip.clearKey=Clear the Keystone Combination before breaking this block!
 am2.tooltip.compEntryNotFound=Compendium Entry (identified by: %s) Not Found
 am2.tooltip.containedXP=Contained XP: %d
-am2.tooltip.det_eth=Detected %s%s§f etherium: %s
+am2.tooltip.det_eth=Detected %s%s§f : %s
 am2.tooltip.diffDimMark=Your mark is in a different dimension
 am2.tooltip.disconnectPower=All power sources to this block were disconnected.
 am2.tooltip.dispel=Dispelling

@@ -48,7 +48,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class ClientTickHandler{
+public class ClientTickHandler {
 	public static HashMap<EntityLiving, EntityLivingBase> targetsToSet = new HashMap<EntityLiving, EntityLivingBase>();
 	private int mouseWheelValue = 0;
 	private int currentSlot = -1;
@@ -70,34 +70,34 @@ public class ClientTickHandler{
 
 	private String lastWorldName;
 
-	private void gameTick_Start(){
+	private void gameTick_Start() {
 
-		if (Minecraft.getMinecraft().isIntegratedServerRunning()){
-			if (worldName == null || !worldName.equals(Minecraft.getMinecraft().getIntegratedServer().getWorldName())){
+		if (Minecraft.getMinecraft().isIntegratedServerRunning()) {
+			if (worldName == null || !worldName.equals(Minecraft.getMinecraft().getIntegratedServer().getWorldName())) {
 				worldName = Minecraft.getMinecraft().getIntegratedServer().getWorldName();
 				firstTick = true;
 			}
-		}else{
-			if (worldName != null && (lastWorldName == null || lastWorldName != worldName.replace(" ", "_"))){
+		} else {
+			if (worldName != null && (lastWorldName == null || lastWorldName != worldName.replace(" ", "_"))) {
 				lastWorldName = worldName.replace(" ", "_");
 				firstTick = true;
 			}
 		}
 
-		if (firstTick){
-//			ItemDefs.crystalPhylactery.getSpawnableEntities(Minecraft.getMinecraft().world);
+		if (firstTick) {
+			// ItemDefs.crystalPhylactery.getSpawnableEntities(Minecraft.getMinecraft().world);
 			compendiumLoad = true;
 			firstTick = false;
 		}
 
-		if (compendiumLoad){
+		if (compendiumLoad) {
 			compendiumLoad = false;
 		}
 		ArsMagicaReborn.proxy.itemFrameWatcher.checkWatchedFrames();
 	}
 
-	private void applyDeferredPotionEffects(){
-		for (EntityLivingBase ent : ArsMagicaReborn.proxy.getDeferredPotionEffects().keySet()){
+	private void applyDeferredPotionEffects() {
+		for (EntityLivingBase ent : ArsMagicaReborn.proxy.getDeferredPotionEffects().keySet()) {
 			ArrayList<PotionEffect> potions = ArsMagicaReborn.proxy.getDeferredPotionEffects().get(ent);
 			for (PotionEffect effect : potions)
 				ent.addPotionEffect(effect);
@@ -106,64 +106,56 @@ public class ClientTickHandler{
 		ArsMagicaReborn.proxy.clearDeferredPotionEffects();
 	}
 
-	private void applyDeferredDimensionTransfers(){
-		for (EntityLivingBase ent : ArsMagicaReborn.proxy.getDeferredDimensionTransfers().keySet()){
+	private void applyDeferredDimensionTransfers() {
+		for (EntityLivingBase ent : ArsMagicaReborn.proxy.getDeferredDimensionTransfers().keySet()) {
 			DimensionUtilities.doDimensionTransfer(ent, ArsMagicaReborn.proxy.getDeferredDimensionTransfers().get(ent));
 		}
 
 		ArsMagicaReborn.proxy.clearDeferredDimensionTransfers();
 	}
 
-	private void gameTick_End(){
+	private void gameTick_End() {
 
 		AMGuiHelper.instance.tick();
 		EntityItemWatcher.instance.tick();
 		checkMouseDWheel();
 
-		if (Minecraft.getMinecraft().isIntegratedServerRunning()){
+		if (Minecraft.getMinecraft().isIntegratedServerRunning()) {
 			MeteorSpawnHelper.instance.tick();
 			applyDeferredPotionEffects();
 		}
 
-		if (!powerWatch.equals(Vec3d.ZERO)){
-			if (powerWatchSyncTick++ == 0){
+		if (!powerWatch.equals(Vec3d.ZERO)) {
+			if (powerWatchSyncTick++ == 0) {
 				AMNetHandler.INSTANCE.sendPowerRequestToServer(powerWatch);
 			}
 			powerWatchSyncTick %= 20;
 		}
 	}
 
-	private void spawnPowerPathVisuals(){
-		if (Minecraft.getMinecraft().player.getItemStackFromSlot(EntityEquipmentSlot.HEAD) != null &&
-				(Minecraft.getMinecraft().player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).getItem() == ItemDefs.magitechGoggles ||
-						ArmorHelper.isInfusionPreset(Minecraft.getMinecraft().player.getItemStackFromSlot(EntityEquipmentSlot.HEAD), GenericImbuement.magitechGoggleIntegration))
-				){
+	private void spawnPowerPathVisuals() {
+		if (Minecraft.getMinecraft().player.getItemStackFromSlot(EntityEquipmentSlot.HEAD) != null && (Minecraft.getMinecraft().player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).getItem() == ItemDefs.magitechGoggles || ArmorHelper.isInfusionPreset(Minecraft.getMinecraft().player.getItemStackFromSlot(EntityEquipmentSlot.HEAD), GenericImbuement.magitechGoggleIntegration))) {
 
-			if (arcSpawnCounter++ >= arcSpawnFrequency){
+			if (arcSpawnCounter++ >= arcSpawnFrequency) {
 				arcSpawnCounter = 0;
 
 				AMVector3 playerPos = new AMVector3(Minecraft.getMinecraft().player);
 
 				HashMap<PowerTypes, ArrayList<LinkedList<Vec3d>>> paths = ArsMagicaReborn.proxy.getPowerPathVisuals();
-				if (paths != null){
-					for (PowerTypes type : paths.keySet()){
+				if (paths != null) {
+					for (PowerTypes type : paths.keySet()) {
 
-						String texture =
-								type == PowerTypes.LIGHT ? "textures/blocks/oreblockbluetopaz.png" :
-										type == PowerTypes.NEUTRAL ? "textures/blocks/oreblockvinteum.png" :
-												type == PowerTypes.DARK ? "textures/blocks/oreblocksunstone.png" :
-														"textures/blocks/oreblocksunstone.png";
+						String texture = "textures/blocks/oreblockbluetopaz.png";//: : type == PowerTypes.NEUTRAL ? "textures/blocks/oreblockvinteum.png" : type == PowerTypes.DARK ? "textures/blocks/oreblocksunstone.png" : "textures/blocks/oreblocksunstone.png";
 
 						ArrayList<LinkedList<Vec3d>> pathList = paths.get(type);
-						for (LinkedList<Vec3d> individualPath : pathList){
-							for (int i = 0; i < individualPath.size() - 1; ++i){
+						for (LinkedList<Vec3d> individualPath : pathList) {
+							for (int i = 0; i < individualPath.size() - 1; ++i) {
 								Vec3d start = individualPath.get(i + 1);
 								Vec3d end = individualPath.get(i);
 
-								if (start.squareDistanceTo(playerPos.toVec3D()) > 2500 || end.squareDistanceTo(playerPos.toVec3D()) > 2500){
+								if (start.squareDistanceTo(playerPos.toVec3D()) > 2500 || end.squareDistanceTo(playerPos.toVec3D()) > 2500) {
 									continue;
 								}
-
 
 								TileEntity teStart = Minecraft.getMinecraft().world.getTileEntity(new BlockPos(start));
 								TileEntity teEnd = Minecraft.getMinecraft().world.getTileEntity(new BlockPos(end));
@@ -171,25 +163,17 @@ public class ClientTickHandler{
 								if (teEnd == null || !(teEnd instanceof IPowerNode))
 									break;
 
-								double startX = start.xCoord + ((teStart != null && teStart instanceof IPowerNode) ? ((IPowerNode<?>)teStart).particleOffset(0) : 0.5f);
-								double startY = start.yCoord + ((teStart != null && teStart instanceof IPowerNode) ? ((IPowerNode<?>)teStart).particleOffset(1) : 0.5f);
-								double startZ = start.zCoord + ((teStart != null && teStart instanceof IPowerNode) ? ((IPowerNode<?>)teStart).particleOffset(2) : 0.5f);
+								double startX = start.xCoord + ((teStart != null && teStart instanceof IPowerNode) ? ((IPowerNode<?>) teStart).particleOffset(0) : 0.5f);
+								double startY = start.yCoord + ((teStart != null && teStart instanceof IPowerNode) ? ((IPowerNode<?>) teStart).particleOffset(1) : 0.5f);
+								double startZ = start.zCoord + ((teStart != null && teStart instanceof IPowerNode) ? ((IPowerNode<?>) teStart).particleOffset(2) : 0.5f);
 
-								double endX = end.xCoord + ((IPowerNode<?>)teEnd).particleOffset(0);
-								double endY = end.yCoord + ((IPowerNode<?>)teEnd).particleOffset(1);
-								double endZ = end.zCoord + ((IPowerNode<?>)teEnd).particleOffset(2);
+								double endX = end.xCoord + ((IPowerNode<?>) teEnd).particleOffset(0);
+								double endY = end.yCoord + ((IPowerNode<?>) teEnd).particleOffset(1);
+								double endZ = end.zCoord + ((IPowerNode<?>) teEnd).particleOffset(2);
 
-								AMLineArc arc = (AMLineArc)ArsMagicaReborn.proxy.particleManager.spawn(
-										Minecraft.getMinecraft().world,
-										texture,
-										startX,
-										startY,
-										startZ,
-										endX,
-										endY,
-										endZ);
+								AMLineArc arc = (AMLineArc) ArsMagicaReborn.proxy.particleManager.spawn(Minecraft.getMinecraft().world, texture, startX, startY, startZ, endX, endY, endZ);
 
-								if (arc != null){
+								if (arc != null) {
 									arcs.add(arc);
 								}
 							}
@@ -197,10 +181,9 @@ public class ClientTickHandler{
 					}
 				}
 			}
-		}else
-		{
+		} else {
 			Iterator<AMLineArc> it = arcs.iterator();
-			while (it.hasNext()){
+			while (it.hasNext()) {
 				AMLineArc arc = it.next();
 				if (arc == null || !arc.isAlive())
 					it.remove();
@@ -211,42 +194,34 @@ public class ClientTickHandler{
 		}
 	}
 
-	private void checkMouseDWheel(){
-		if (this.mouseWheelValue != 0 && this.currentSlot > -1){
+	private void checkMouseDWheel() {
+		if (this.mouseWheelValue != 0 && this.currentSlot > -1) {
 			Minecraft.getMinecraft().player.inventory.currentItem = this.currentSlot;
 
 			ItemStack stack = Minecraft.getMinecraft().player.getHeldItem(EnumHand.MAIN_HAND);
 
-			if (checkForTKMove(stack)){
-				EntityExtension props = (EntityExtension)EntityExtension.For(Minecraft.getMinecraft().player);
-				if (this.mouseWheelValue > 0 && props.getTKDistance() < 10){
+			if (checkForTKMove(stack)) {
+				EntityExtension props = (EntityExtension) EntityExtension.For(Minecraft.getMinecraft().player);
+				if (this.mouseWheelValue > 0 && props.getTKDistance() < 10) {
 					props.addToTKDistance(0.5f);
-				}else if (this.mouseWheelValue < 0 && props.getTKDistance() > 0.3){
+				} else if (this.mouseWheelValue < 0 && props.getTKDistance() > 0.3) {
 					props.addToTKDistance(-0.5f);
 				}
 				LogHelper.debug("TK Distance: %.2f", props.getTKDistance());
 				props.syncTKDistance();
-			}
-				else if (stack.getItem() instanceof ItemSpellBook && Minecraft.getMinecraft().player.isSneaking()){
-				ItemSpellBook isb = (ItemSpellBook)stack.getItem();
-				if (this.mouseWheelValue != 0){
+			} else if (stack.getItem() instanceof ItemSpellBook && Minecraft.getMinecraft().player.isSneaking()) {
+				ItemSpellBook isb = (ItemSpellBook) stack.getItem();
+				if (this.mouseWheelValue != 0) {
 					byte subID = 0;
-					if (this.mouseWheelValue < 0){
+					if (this.mouseWheelValue < 0) {
 						isb.SetNextSlot(Minecraft.getMinecraft().player.getHeldItem(EnumHand.MAIN_HAND));
 						subID = ItemSpellBook.ID_NEXT_SPELL;
-					}else{
+					} else {
 						isb.SetPrevSlot(Minecraft.getMinecraft().player.getHeldItem(EnumHand.MAIN_HAND));
 						subID = ItemSpellBook.ID_PREV_SPELL;
 					}
-					//send packet to server
-					AMNetHandler.INSTANCE.sendPacketToServer(
-							AMPacketIDs.SPELLBOOK_CHANGE_ACTIVE_SLOT,
-							new AMDataWriter()
-									.add(subID)
-									.add(Minecraft.getMinecraft().player.getEntityId())
-									.add(Minecraft.getMinecraft().player.inventory.currentItem)
-									.generate()
-					);
+					// send packet to server
+					AMNetHandler.INSTANCE.sendPacketToServer(AMPacketIDs.SPELLBOOK_CHANGE_ACTIVE_SLOT, new AMDataWriter().add(subID).add(Minecraft.getMinecraft().player.getEntityId()).add(Minecraft.getMinecraft().player.inventory.currentItem).generate());
 				}
 			}
 			this.currentSlot = -1;
@@ -254,15 +229,15 @@ public class ClientTickHandler{
 		}
 	}
 
-	private boolean checkForTKMove(ItemStack stack){
-		if (stack.getItem() instanceof ItemSpellBook){
-			ItemStack activeStack = ((ItemSpellBook)stack.getItem()).GetActiveItemStack(stack);
+	private boolean checkForTKMove(ItemStack stack) {
+		if (stack.getItem() instanceof ItemSpellBook) {
+			ItemStack activeStack = ((ItemSpellBook) stack.getItem()).GetActiveItemStack(stack);
 			if (activeStack != null)
 				stack = activeStack;
 		}
-		if (stack.getItem() instanceof ItemSpellBase && stack.hasTagCompound() && this.usingItem){
-			for (SpellComponent component : SpellUtils.getComponentsForStage(stack, -1)){
-				if (component instanceof Telekinesis){
+		if (stack.getItem() instanceof ItemSpellBase && stack.hasTagCompound() && this.usingItem) {
+			for (SpellComponent component : SpellUtils.getComponentsForStage(stack, -1)) {
+				if (component instanceof Telekinesis) {
 					return true;
 				}
 			}
@@ -270,30 +245,30 @@ public class ClientTickHandler{
 		return false;
 	}
 
-	private void renderTick_Start(){
+	private void renderTick_Start() {
 		if (!Minecraft.getMinecraft().inGameHasFocus)
 			AMGuiHelper.instance.guiTick();
 	}
 
-	private void renderTick_End(){
+	private void renderTick_End() {
 	}
 
-	private void localServerTick_End(){
+	private void localServerTick_End() {
 		BossSpawnHelper.instance.tick();
 	}
 
 	@SubscribeEvent
-	public void onClientTick(TickEvent.ClientTickEvent event){
-		if (event.phase == TickEvent.Phase.START){
+	public void onClientTick(TickEvent.ClientTickEvent event) {
+		if (event.phase == TickEvent.Phase.START) {
 			GuiScreen guiscreen = Minecraft.getMinecraft().currentScreen;
-			if (guiscreen != null){
-			}else{
+			if (guiscreen != null) {
+			} else {
 				gameTick_Start();
 			}
-		}else if (event.phase == TickEvent.Phase.END){
+		} else if (event.phase == TickEvent.Phase.END) {
 			GuiScreen guiscreen = Minecraft.getMinecraft().currentScreen;
-			if (guiscreen != null){
-			}else{
+			if (guiscreen != null) {
+			} else {
 				gameTick_End();
 			}
 
@@ -303,75 +278,75 @@ public class ClientTickHandler{
 	}
 
 	@SubscribeEvent
-	public void onRenderTick(TickEvent.RenderTickEvent event){
-		if (event.phase == TickEvent.Phase.START){
+	public void onRenderTick(TickEvent.RenderTickEvent event) {
+		if (event.phase == TickEvent.Phase.START) {
 			renderTick_Start();
-		}else if (event.phase == TickEvent.Phase.END){
+		} else if (event.phase == TickEvent.Phase.END) {
 			renderTick_End();
 		}
 	}
-	
+
 	@SubscribeEvent
-	public void onBlockHighlight(DrawBlockHighlightEvent event){
+	public void onBlockHighlight(DrawBlockHighlightEvent event) {
 		ArsMagicaReborn.proxy.drawPowerOnBlockHighlight(event.getPlayer(), event.getTarget(), event.getPartialTicks());
 	}
 
 	@SubscribeEvent
-	public void onWorldTick(TickEvent.WorldTickEvent event){
-//		if (Minecraft.getMinecraft().isIntegratedServerRunning()){
-//			if (ArsMagicaReborn.config.retroactiveWorldgen())
-//				RetroactiveWorldgenerator.instance.continueRetrogen(event.world);
-//		}
-		if (event.phase == TickEvent.Phase.END){
+	public void onWorldTick(TickEvent.WorldTickEvent event) {
+		// if (Minecraft.getMinecraft().isIntegratedServerRunning()){
+		// if (ArsMagicaReborn.config.retroactiveWorldgen())
+		// RetroactiveWorldgenerator.instance.continueRetrogen(event.world);
+		// }
+		if (event.phase == TickEvent.Phase.END) {
 			applyDeferredDimensionTransfers();
 		}
 	}
 
 	@SubscribeEvent
-	public void onServerTick(TickEvent.ServerTickEvent event){
-		if (event.phase == TickEvent.Phase.END){
+	public void onServerTick(TickEvent.ServerTickEvent event) {
+		if (event.phase == TickEvent.Phase.END) {
 			localServerTick_End();
 		}
 	}
 
-	public void setDWheel(int dWheel, int slot, boolean usingItem){
+	public void setDWheel(int dWheel, int slot, boolean usingItem) {
 		this.mouseWheelValue = dWheel;
 		this.currentSlot = slot;
 		this.usingItem = usingItem;
 	}
 
-	public Vec3d getTrackLocation(){
+	public Vec3d getTrackLocation() {
 		return this.powerWatch;
 	}
 
-	public PowerNodeEntry getTrackData(){
+	public PowerNodeEntry getTrackData() {
 		return this.powerData;
 	}
 
-	public void setTrackLocation(Vec3d location){
-		if (location.equals(Vec3d.ZERO)){
+	public void setTrackLocation(Vec3d location) {
+		if (location.equals(Vec3d.ZERO)) {
 			this.hasSynced = false;
 			this.powerWatch = location;
 			return;
 		}
-		if (!this.powerWatch.equals(location)){
+		if (!this.powerWatch.equals(location)) {
 			this.powerWatch = location;
 			this.powerWatchSyncTick = 0;
 			this.hasSynced = false;
 		}
 	}
 
-	public void setTrackData(NBTTagCompound compound){
+	public void setTrackData(NBTTagCompound compound) {
 		this.powerData = new PowerNodeEntry();
 		this.powerData.readFromNBT(compound);
 		this.hasSynced = true;
 	}
 
-	public boolean getHasSynced(){
+	public boolean getHasSynced() {
 		return this.hasSynced;
 	}
 
-	public void addDeferredTarget(EntityLiving ent, EntityLivingBase target){
+	public void addDeferredTarget(EntityLiving ent, EntityLivingBase target) {
 		targetsToSet.put(ent, target);
 	}
 }

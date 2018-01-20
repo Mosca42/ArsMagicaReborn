@@ -40,7 +40,7 @@ public class Self extends SpellShape{
 				BlockDefs.aum,
 				new ItemStack(ItemDefs.itemOre, 1, ItemOre.META_VINTEUM),
 				ItemDefs.lesserFocus,
-				"E:" + PowerTypes.NEUTRAL.ID(), 500
+				"E:" + PowerTypes.MANA.ID(), 500
 		};
 	}
 	

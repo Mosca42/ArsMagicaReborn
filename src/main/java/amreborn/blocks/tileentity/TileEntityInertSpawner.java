@@ -28,7 +28,7 @@ public class TileEntityInertSpawner extends TileEntityAMPower implements ISidedI
 	private ItemStack phylactery = ItemStack.EMPTY;
 	private float powerConsumed = 0.0f;
 
-	private static final ArrayList<PowerTypes> valid = Lists.newArrayList(PowerTypes.DARK);
+	private static final ArrayList<PowerTypes> valid = Lists.newArrayList(PowerTypes.MANA);
 
 	private static final float SUMMON_REQ = 6000;
 
@@ -193,7 +193,7 @@ public class TileEntityInertSpawner extends TileEntityAMPower implements ISidedI
 			if (this.powerConsumed < TileEntityInertSpawner.SUMMON_REQ){
 				this.powerConsumed += PowerNodeRegistry.For(world).consumePower(
 						this,
-						PowerTypes.DARK,
+						PowerTypes.MANA,
 						Math.min(this.getCapacity(), TileEntityInertSpawner.SUMMON_REQ - this.powerConsumed)
 				);
 			}else{

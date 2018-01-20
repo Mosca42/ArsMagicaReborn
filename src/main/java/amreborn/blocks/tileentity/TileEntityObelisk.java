@@ -249,7 +249,7 @@ public class TileEntityObelisk extends TileEntityAMPower implements IMultiblockS
 				}
 			}
 
-			float powerAmt = PowerNodeRegistry.For(world).getPower(this, PowerTypes.NEUTRAL);
+			float powerAmt = PowerNodeRegistry.For(world).getPower(this, PowerTypes.MANA);
 			float powerAdded = inventory.get(0) != ItemStack.EMPTY ? ObeliskFuelHelper.instance.getFuelBurnTime(inventory.get(0)) * (powerBase * powerMultiplier) : 0;
 
 			float chargeThreshold = Math.max(this.getCapacity() - powerAdded, this.getCapacity() * 0.75f);
@@ -270,7 +270,7 @@ public class TileEntityObelisk extends TileEntityAMPower implements IMultiblockS
 
 			if (burnTimeRemaining > 0){
 				burnTimeRemaining--;
-				PowerNodeRegistry.For(world).insertPower(this, PowerTypes.NEUTRAL, powerBase * powerMultiplier);
+				PowerNodeRegistry.For(world).insertPower(this, PowerTypes.MANA, powerBase * powerMultiplier);
 
 				if (burnTimeRemaining % 20 == 0)
 					sendCookUpdateToClients();
@@ -354,12 +354,12 @@ public class TileEntityObelisk extends TileEntityAMPower implements IMultiblockS
 
 	@Override
 	public boolean canProvidePower(PowerTypes type){
-		return type == PowerTypes.NEUTRAL;
+		return type == PowerTypes.MANA;
 	}
 
 	@Override
 	public List<PowerTypes> getValidPowerTypes(){
-		return Lists.newArrayList(PowerTypes.NEUTRAL);
+		return Lists.newArrayList(PowerTypes.MANA);
 	}
 
 	@Override

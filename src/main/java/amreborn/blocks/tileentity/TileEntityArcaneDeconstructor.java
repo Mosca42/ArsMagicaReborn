@@ -49,7 +49,7 @@ public class TileEntityArcaneDeconstructor extends TileEntityAMPower implements 
 	private static final int DECONSTRUCTION_TIME = 200; //how long does it take to deconstruct something?
 	private int current_deconstruction_time = 0; //how long have we been deconstructing something?
 
-	private static final ArrayList<PowerTypes> validPowerTypes = Lists.newArrayList(PowerTypes.DARK);
+	private static final ArrayList<PowerTypes> validPowerTypes = Lists.newArrayList(PowerTypes.MANA);
 
 	@SideOnly(Side.CLIENT)
 	AMParticle radiant;
@@ -100,7 +100,7 @@ public class TileEntityArcaneDeconstructor extends TileEntityAMPower implements 
 					this.markDirty();
 					//worldObj.markAndNotifyBlock(pos, worldObj.getChunkFromBlockCoords(pos), worldObj.getBlockState(pos), worldObj.getBlockState(pos), 2);
 				}else{
-					if (PowerNodeRegistry.For(world).checkPower(this, PowerTypes.DARK, DECONSTRUCTION_POWER_COST)){
+					if (PowerNodeRegistry.For(world).checkPower(this, PowerTypes.MANA, DECONSTRUCTION_POWER_COST)){
 						if (deconstructionRecipe == null){
 							if (!getDeconstructionRecipe()){
 								transferOrEjectItem(inventory.get(0));
@@ -121,7 +121,7 @@ public class TileEntityArcaneDeconstructor extends TileEntityAMPower implements 
 								this.markDirty();
 								//worldObj.markAndNotifyBlock(pos, worldObj.getChunkFromBlockCoords(pos), worldObj.getBlockState(pos), worldObj.getBlockState(pos), 2);
 						}
-						PowerNodeRegistry.For(world).consumePower(this, PowerTypes.DARK, DECONSTRUCTION_POWER_COST);
+						PowerNodeRegistry.For(world).consumePower(this, PowerTypes.MANA, DECONSTRUCTION_POWER_COST);
 					}
 				}
 			}

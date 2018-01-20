@@ -9,9 +9,7 @@ public class PowerTypes {
 	private static int nextID = 1;
 	private static ArrayList<PowerTypes> types = new ArrayList<>();
 	public static final PowerTypes NONE = new PowerTypes("None");
-	public static final PowerTypes LIGHT = new PowerTypes("Light", "\u00A7b", 1.25f, 1.0f, 0x00AAFF);
-	public static final PowerTypes NEUTRAL = new PowerTypes("Neutral", "\u00A71", 1.0f, 1.0f, 0x0000AA);
-	public static final PowerTypes DARK = new PowerTypes("Dark", "\u00A74", 0.75f, 1.0f, 0x770000);
+	public static final PowerTypes MANA = new PowerTypes("Mana", "\u00A7b", 1.25f, 1.0f, 0x00AAFF);
 	private int ID;
 	private String name;
 	private String chatColor;

@@ -155,7 +155,7 @@ public class Beam extends SpellShape{
 				new ItemStack(ItemDefs.itemOre, 1, ItemOre.META_BLUE_TOPAZ),
 				new ItemStack(ItemDefs.itemOre, 1, ItemOre.META_PURIFIED_VINTEUM),
 				BlockDefs.aum,
-				"E:" + PowerTypes.NEUTRAL.ID(), 500
+				"E:" + PowerTypes.MANA.ID(), 500
 		};
 	}
 

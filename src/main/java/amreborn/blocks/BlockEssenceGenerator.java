@@ -45,7 +45,7 @@ public class BlockEssenceGenerator extends BlockAMPowered {
 		this.NexusType = nexusType;
 		switch (this.NexusType) {
 		case NEXUS_STANDARD:
-			setBlockBounds(0f, 0.0f, 0f, 1f, 2f, 1f);
+			setBlockBounds(0f, 0.0f, 0f, 1f, 4f, 1f);
 			break;
 		case NEXUS_LIGHT:
 			setBlockBounds(0.0f, 0.0f, 0.0f, 1.0f, 2f, 1.0f);

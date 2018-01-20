@@ -36,7 +36,7 @@ public class Contingency_Death extends SpellShape{
 				Items.BLAZE_POWDER,
 				BlockDefs.tarmaRoot,
 				new ItemStack(ItemDefs.itemOre, 1, ItemOre.META_ARCANEASH),
-				"E:" + PowerTypes.DARK.ID(), 5000
+				"E:" + PowerTypes.MANA.ID(), 5000
 		};
 	}
 

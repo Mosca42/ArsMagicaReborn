@@ -39,7 +39,7 @@ public class AM2WorldDecorator implements IWorldGenerator{
 	private final AM2FlowerGen blueOrchid;
 	private final AM2FlowerGen desertNova;
 	private final AM2FlowerGen wakebloom;
-	private final AM2FlowerGen aum;
+	private final AMRFlowerGen aum;
 	private final AM2FlowerGen tarmaRoot;
 
 	private ArrayList<Integer> dimensionBlacklist = new ArrayList<Integer>();
@@ -65,7 +65,7 @@ public class AM2WorldDecorator implements IWorldGenerator{
 		blueOrchid = new AM2FlowerGen(BlockDefs.cerublossom);
 		desertNova = new AM2FlowerGen(BlockDefs.desertNova);
 		wakebloom = new AM2FlowerGen(BlockDefs.wakebloom);
-		aum = new AM2FlowerGen(BlockDefs.aum);
+		aum = new AMRFlowerGen(BlockDefs.aum);
 		tarmaRoot = new AM2FlowerGen(BlockDefs.tarmaRoot);
 
 		witchwoodTree = new WitchwoodTreeHuge(true);
@@ -108,7 +108,6 @@ public class AM2WorldDecorator implements IWorldGenerator{
 		generateOre(sunstone, 20, world, random, 5, 120, chunkX, chunkZ);
 
 		generateFlowers(blueOrchid, world, random, chunkX, chunkZ);
-		generateFlowers(desertNova, world, random, chunkX, chunkZ);
 		generateFlowers(tarmaRoot, world, random, chunkX, chunkZ);
 
 		Biome biome = world.getBiome(new BlockPos (chunkX << 4, 0, chunkZ << 4));
@@ -125,6 +124,14 @@ public class AM2WorldDecorator implements IWorldGenerator{
 
 		if (biome != Biome.REGISTRY.getObject(new ResourceLocation("minecraft:ocean")) && typeValid && random.nextInt(10) < 7){
 			generateFlowers(wakebloom, world, random, chunkX, chunkZ);
+		}
+		
+		if (biome == Biome.REGISTRY.getObject(new ResourceLocation("minecraft:desert")) && random.nextInt(10) < 7){
+			generateFlowers(desertNova, world, random, chunkX, chunkZ);
+		}
+	
+		if (biome == Biome.REGISTRY.getObject(new ResourceLocation("minecraft:desert_hills")) && random.nextInt(10) < 4){
+			generateFlowers(desertNova, world, random, chunkX, chunkZ);
 		}
 
 		if (random.nextInt(35) == 0){

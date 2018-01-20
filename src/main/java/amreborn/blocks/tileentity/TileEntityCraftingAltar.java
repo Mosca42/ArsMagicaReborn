@@ -855,7 +855,7 @@ private IBlockState mimicState;
 			}
 			
 			//find otherworld auras
-			IPowerNode<?>[] nodes = PowerNodeRegistry.For(world).getAllNearbyNodes(world, new Vec3d(pos), PowerTypes.DARK);
+			IPowerNode<?>[] nodes = PowerNodeRegistry.For(world).getAllNearbyNodes(world, new Vec3d(pos), PowerTypes.MANA);
 			for (IPowerNode<?> node : nodes){
 				if (node instanceof TileEntityOtherworldAura){
 					((TileEntityOtherworldAura)node).setActive(true, this);

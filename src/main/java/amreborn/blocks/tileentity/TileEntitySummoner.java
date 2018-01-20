@@ -82,7 +82,7 @@ public class TileEntitySummoner extends TileEntityAMPower implements IInventory,
 			} else {
 				if (ent != null) {
 					unsummonCreature();
-					PowerNodeRegistry.For(this.world).insertPower(this, PowerTypes.NEUTRAL, summonCost / 2);
+					PowerNodeRegistry.For(this.world).insertPower(this, PowerTypes.MANA, summonCost / 2);
 				}
 			}
 		}

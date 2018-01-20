@@ -182,7 +182,7 @@ public class AoE extends SpellShape{
 		return new Object[]{
 				new ItemStack(ItemDefs.itemOre, 1, ItemOre.META_MOONSTONE),
 				AffinityShiftUtils.getEssenceForAffinity(Affinity.AIR),
-				String.format("E:%d|%d|%d", PowerTypes.LIGHT.ID(), PowerTypes.NEUTRAL.ID(), PowerTypes.DARK.ID()), 1000,
+				String.format("E:%d", PowerTypes.MANA.ID()), 1000,
 				Blocks.TNT
 		};
 	}
