@@ -1,7 +1,7 @@
-Ars Magica 2 - Reborn 1.10.2
+Ars Magica Reborn 1.11.2
 ========
 
-This is a reworked version of the Ars Magica 2 mod by Mithion.
+This is a reworked version of the Ars Magica 2 mod by Mosca42.
 
 
 
@@ -9,6 +9,7 @@ This is a reworked version of the Ars Magica 2 mod by Mithion.
 * [Homepage](http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1292222)
 * [Unofficial Wiki](http://am2.wikia.com/wiki/Ars_Magica_2_Wiki)
 * [How to Report a Bug Properly](http://pastebin.com/29r0Nhe0)
+* [Old Version](https://github.com/Growlith1223/ArsMagica2)
 
 ## Currently in the API
 
