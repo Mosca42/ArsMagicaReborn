@@ -146,12 +146,12 @@ public class BlockVinteumCauldron extends BlockContainer {
 							if (itemstack.isEmpty()) {
 								playerIn.setHeldItem(hand, UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockDefs.purified_liquid_essence));
 							} else if (!playerIn.inventory.addItemStackToInventory(UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockDefs.purified_liquid_essence))) {
-								playerIn.dropItem(UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockDefs.purified_liquid_essence), false);							}
+								playerIn.dropItem(UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockDefs.purified_liquid_essence), false);
+							}
 						}
 						this.setWaterLevel(worldIn, pos, state, 0);
 						worldIn.playSound((EntityPlayer) null, pos, SoundEvents.ITEM_BUCKET_FILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
-					}
-					if (i == 3 && !worldIn.isRemote) {
+					} else if (i == 3 && !worldIn.isRemote) {
 						if (!playerIn.capabilities.isCreativeMode) {
 							itemstack.shrink(1);
 							((TileEntityVinteumCauldron) tile).setTick(0);
@@ -165,6 +165,37 @@ public class BlockVinteumCauldron extends BlockContainer {
 						worldIn.playSound((EntityPlayer) null, pos, SoundEvents.ITEM_BUCKET_FILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
 					}
 					return true;
+				} else if (item == Items.GLASS_BOTTLE) {
+					if (i > 3 && !worldIn.isRemote) {
+						if (!playerIn.capabilities.isCreativeMode) {
+							itemstack.shrink(1);
+							((TileEntityVinteumCauldron) tile).setTick(0);
+							if (itemstack.isEmpty()) {
+								playerIn.setHeldItem(hand, UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockDefs.purified_liquid_essence));
+							} else if (!playerIn.inventory.addItemStackToInventory(new ItemStack(ItemDefs.purifiedLiquidEssenceBottle))) {
+								playerIn.dropItem(new ItemStack(ItemDefs.purifiedLiquidEssenceBottle), false);
+							}
+						}
+						if (this.getWaterLevel(worldIn, pos) == 4) {
+							this.setWaterLevel(worldIn, pos, state, 0);
+						}else
+						{
+							this.setWaterLevel(worldIn, pos, state, this.getWaterLevel(worldIn, pos) - 1);
+						}
+						worldIn.playSound((EntityPlayer) null, pos, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
+					} else if (i != 0 && i <= 3 && !worldIn.isRemote) {
+						if (!playerIn.capabilities.isCreativeMode) {
+							itemstack.shrink(1);
+							((TileEntityVinteumCauldron) tile).setTick(0);
+							if (itemstack.isEmpty()) {
+								playerIn.setHeldItem(hand, UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockDefs.liquid_essence));
+							} else if (!playerIn.inventory.addItemStackToInventory(new ItemStack(ItemDefs.liquidEssenceBottle))) {
+								playerIn.dropItem(new ItemStack(ItemDefs.liquidEssenceBottle), false);
+							}
+						}
+						this.setWaterLevel(worldIn, pos, state, this.getWaterLevel(worldIn, pos) - 1);
+						worldIn.playSound((EntityPlayer) null, pos, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
+					}
 				}
 				return true;
 			}

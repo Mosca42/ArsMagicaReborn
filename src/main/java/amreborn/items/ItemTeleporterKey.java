@@ -22,7 +22,7 @@ public class ItemTeleporterKey extends Item {
 
 	public ItemTeleporterKey() {
 		setMaxStackSize(1);
-		setCreativeTab(CreativeTabsDefs.tabAM2Blocks);
+		setCreativeTab(CreativeTabsDefs.tabAM2Items);
 	}
 
 	@Override
@@ -51,7 +51,6 @@ public class ItemTeleporterKey extends Item {
 
 	@Override
 	public NBTTagCompound getNBTShareTag(ItemStack stack) {
-		System.out.println("Sync nbt");
 		if (!stack.hasTagCompound())
 			stack.setTagCompound(new NBTTagCompound());
 

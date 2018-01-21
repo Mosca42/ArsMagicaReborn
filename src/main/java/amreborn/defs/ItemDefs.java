@@ -190,8 +190,11 @@ public class ItemDefs {
 	public static final Item battlemageLeggings = new AMArmor(BATTLEMAGE, ArsMagicaArmorMaterial.BATTLEMAGE, 0, EntityEquipmentSlot.LEGS).registerAndName("legs_battlemage");
 	public static final Item battlemageBoots = new AMArmor(BATTLEMAGE, ArsMagicaArmorMaterial.BATTLEMAGE, 0, EntityEquipmentSlot.FEET).registerAndName("boots_battlemage");
 
+	
 	public static final Item teleporterKey = new ItemTeleporterKey().registerAndName("teleporter_key");
+	public static final Item purifiedLiquidEssenceBottle = new ItemPurifiedLiquidEssenceBottle().registerAndName("purified_liquid_essence_bottle");
 
+	
 	//public static final ItemArsMagica chalk = new ItemChalk().registerAndName("chalk");
 
 	
