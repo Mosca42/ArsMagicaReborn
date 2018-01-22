@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javax.annotation.Nullable;
+
 import amreborn.ArsMagicaReborn;
 import amreborn.blocks.tileentity.TileEntityCelestialPrism;
 import amreborn.blocks.tileentity.TileEntityObelisk;
 import amreborn.defs.BlockDefs;
 import amreborn.defs.IDDefs;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
@@ -18,6 +21,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -26,7 +30,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.internal.FMLNetworkHandler;
 
-public class BlockEssenceGenerator extends BlockAMPowered {
+public class BlockEssenceGenerator extends BlockAMPowered implements ITileEntityProvider {
 
 	private int NexusType;
 
@@ -56,6 +60,46 @@ public class BlockEssenceGenerator extends BlockAMPowered {
 		}
 	}
 
+	@Override
+	public BlockRenderLayer getBlockLayer() {
+		return BlockRenderLayer.CUTOUT;
+	}
+
+	@Override
+	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+		return true;
+	}
+
+	@Override
+	public boolean isOpaqueCube(IBlockState state) {
+		return false;
+	}
+
+	@Override
+	public boolean isBlockSolid(IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
+		return true;
+	}
+
+	@Override
+	public boolean isFullBlock(IBlockState state) {
+		return false;
+	}
+
+	@Override
+	public boolean isFullCube(IBlockState state) {
+		return false;
+	}
+
+	@Override
+	public boolean isNormalCube(IBlockState state) {
+		return false;
+	}
+
+	@Override
+	public int getLightOpacity(IBlockState state, IBlockAccess world, BlockPos pos) {
+		return 0;
+	}
+	
 	private TileEntityObelisk getTileEntity(IBlockAccess blockAccess, BlockPos pos) {
 		TileEntity te = blockAccess.getTileEntity(pos);
 		if (te != null && te instanceof TileEntityObelisk) {
@@ -87,9 +131,23 @@ public class BlockEssenceGenerator extends BlockAMPowered {
 	@Override
 	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, Entity entityIn, boolean p_185477_7_) {
 		super.addCollisionBoxToList(state, worldIn, pos, entityBox, collidingBoxes, entityIn, p_185477_7_);
-		
+        addCollisionBoxToList(pos, entityBox, collidingBoxes, state.getCollisionBoundingBox(worldIn, pos));
 	}
 
+    protected static void addCollisionBoxToList(BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable AxisAlignedBB blockBox)
+    {
+        if (blockBox != NULL_AABB)
+        {
+            AxisAlignedBB axisalignedbb = blockBox.offset(new BlockPos(pos.getX(), pos.getY() + 4, pos.getZ()));
+
+            if (entityBox.intersectsWith(axisalignedbb))
+            {
+                collidingBoxes.add(axisalignedbb);
+            }
+        }
+    }
+
+	
 	@Override
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 		return super.getCollisionBoundingBox(blockState, worldIn, pos);

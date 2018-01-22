@@ -157,7 +157,8 @@ public class SpecialRenderModelLoader implements ICustomModelLoader{
 				modelLocation.toString().contains("magicians_workbench") ||
 				modelLocation.toString().contains("summoner") ||
 				modelLocation.toString().contains("astral_barrier") ||
-				modelLocation.toString().contains("otherworld_aura")) && modelLocation.getResourceDomain().equals(ArsMagicaReborn.MODID) && !modelLocation.toString().contains(".obj");
+				modelLocation.toString().contains("otherworld_aura")||
+				modelLocation.toString().contains("obelisk")) && modelLocation.getResourceDomain().equals(ArsMagicaReborn.MODID) && !modelLocation.toString().contains(".obj");
 	}
 
 	@Override

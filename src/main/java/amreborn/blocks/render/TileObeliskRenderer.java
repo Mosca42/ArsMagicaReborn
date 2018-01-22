@@ -54,10 +54,14 @@ public class TileObeliskRenderer extends TileEntitySpecialRenderer<TileEntityObe
 		runesBakedModel = runesModel.bake(TRSRTransformation.identity(), DefaultVertexFormats.ITEM, getter);
 	}
 
+	
+	 
 	@Override
 	public void renderTileEntityAt(TileEntityObelisk te, double x, double y, double z, float partialTicks, int destroyStage) {
-		if (!te.getWorld().isBlockLoaded(te.getPos(), false) || te.getWorld().getBlockState(te.getPos()).getBlock() != BlockDefs.obelisk)
-			return;
+//		if (!te.getWorld().isBlockLoaded(te.getPos(), false) || te.getWorld().getBlockState(te.getPos()).getBlock() != BlockDefs.obelisk) {
+//			return;
+//		}
+
 		GlStateManager.pushAttrib();
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(x, y, z);

@@ -328,7 +328,8 @@ public class LoreDefs {
 		createItemEntry(BLOCK, "arcane_deconstructor", new ItemStack (BlockDefs.arcaneDeconstructor), 1);
 		createItemEntry(BLOCK, "otherworld_aura", new ItemStack (BlockDefs.otherworldAura), 1);
 		createItemEntry(BLOCK, "inert_spawner", new ItemStack (BlockDefs.inertSpawner), 1);
-		
+		createItemEntry(BLOCK, "obelisk", new ItemStack (BlockDefs.obelisk), 1);
+
 		createEntry(BLOCK_ILLUSIONBLOCKS, "illusion_blocks", 1);
 		createItemEntry(BLOCK_ILLUSIONBLOCKS, "default_illusionblock", new ItemStack (BlockDefs.illusionBlock, 1, 0), 1);
 		createItemEntry(BLOCK_ILLUSIONBLOCKS, "ethereal_illusionblock", new ItemStack (BlockDefs.illusionBlock, 1, 1), 1);

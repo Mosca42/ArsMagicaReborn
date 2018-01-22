@@ -321,7 +321,7 @@ public class TileEntityMagiciansWorkbench extends TileEntity implements ITickabl
 	@Override
 	public void readFromNBT(NBTTagCompound nbttagcompound){
 		super.readFromNBT(nbttagcompound);
-		NBTTagList nbttaglist = nbttagcompound.getTagList("ArcaneReconstructorInventory", Constants.NBT.TAG_COMPOUND);
+		NBTTagList nbttaglist = nbttagcompound.getTagList("MagiciansWorkbench", Constants.NBT.TAG_COMPOUND);
 		inventory = NonNullList.<ItemStack>withSize(getSizeInventory(), ItemStack.EMPTY);
 		for (int i = 0; i < nbttaglist.tagCount(); i++){
 			String tag = String.format("ArrayIndex", i);
@@ -372,7 +372,7 @@ public class TileEntityMagiciansWorkbench extends TileEntity implements ITickabl
 			}
 		}
 
-		nbttagcompound.setTag("ArcaneReconstructorInventory", nbttaglist);
+		nbttagcompound.setTag("MagiciansWorkbench", nbttaglist);
 
 		//remembered recipes
 		NBTTagList recall = new NBTTagList();

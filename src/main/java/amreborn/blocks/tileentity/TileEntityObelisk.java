@@ -78,6 +78,11 @@ public class TileEntityObelisk extends TileEntityAMPower implements IMultiblockS
 		inventory = NonNullList.<ItemStack>withSize(getSizeInventory(), ItemStack.EMPTY);
 	}
 
+	@Override
+	public boolean shouldRenderInPass(int pass) {
+		return true;
+	}
+	
 	protected void checkNearbyBlockState(){
 		List<MultiblockGroup> groups = structure.getMatchingGroups(world, pos);
 
@@ -292,7 +297,7 @@ public class TileEntityObelisk extends TileEntityAMPower implements IMultiblockS
 	@Override
 	@SideOnly(Side.CLIENT)
 	public AxisAlignedBB getRenderBoundingBox(){
-		return new AxisAlignedBB(pos.getX() - 1, pos.getY(), pos.getZ() - 1, pos.getX() + 2, pos.getY() + 0.3, pos.getZ() + 2);
+		return INFINITE_EXTENT_AABB;
 	}
 
 	@Override

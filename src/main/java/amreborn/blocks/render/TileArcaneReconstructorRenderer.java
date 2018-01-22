@@ -70,8 +70,9 @@ public class TileArcaneReconstructorRenderer extends TileEntitySpecialRenderer<T
 
 	@Override
 	public void renderTileEntityAt(TileEntityArcaneReconstructor te, double x, double y, double z, float partialTicks, int destructionStage) {
-		if (renderItem == null)
+		if (renderItem == null) {
 			renderItem = new RenderItemNoBob(Minecraft.getMinecraft().getRenderManager());
+		}
 		bake();
 		float floatingOffset = te.getOffset();// (float) (Math.sin(te.getOffset()) * (Math.PI/ 180F) * 1.4f);
 
