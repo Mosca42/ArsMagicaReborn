@@ -14,7 +14,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 import thehippomaster.AnimationAPI.packet.PacketAnim;
 
-@Mod(modid = "AnimationAPI", name = "AnimationAPI", version = "1.2.4")
+@Mod(modid = "animationapi", name = "AnimationAPI", version = "1.2.4")
 public class AnimationAPI {
 	
 	@EventHandler

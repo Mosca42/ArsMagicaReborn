@@ -51,7 +51,7 @@ public class CloakUtils{
 	private static ResourceLocation getCapeLocation(String userName){
 		ResourceLocation resourceLocation = downloadedCloakLocations.get(userName);
 		if (resourceLocation == null){
-			resourceLocation = new ResourceLocation("am2cloak/" + userName);
+			resourceLocation = new ResourceLocation("amreborncloak/" + userName);
 			downloadedCloakLocations.put(userName, resourceLocation);
 		}
 		return resourceLocation;

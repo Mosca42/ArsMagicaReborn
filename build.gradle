@@ -30,7 +30,7 @@ ext.configFile = file('build.properties')
 ext.config = parseConfig(configFile)
 
 version = "${config.version}-${config.build_number}"
-group= "am2" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group= "amreborn" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "ArsMagicaReborn"
 
 
@@ -46,7 +46,7 @@ minecraft {
 
 jar {
 	manifest {
-		attributes 'FMLCorePlugin' : 'am2.asm.Preloader'
+		attributes 'FMLCorePlugin' : 'amreborn.asm.Preloader'
 		attributes 'FMLCorePluginContainsFMLMod' : 'true'
 	}
 }

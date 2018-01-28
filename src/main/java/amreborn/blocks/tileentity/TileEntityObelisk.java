@@ -161,17 +161,6 @@ public class TileEntityObelisk extends TileEntityAMPower implements IMultiblockS
 		// Obelisk ritual - Light
 		rituals = new MultiblockStructureDefinition[2];
 		rituals[0] = new MultiblockStructureDefinition("obelisk_light");
-
-		ritual1Candles = new MultiblockGroup("candles", Lists.newArrayList(BlockDefs.wardingCandle.getDefaultState()), false);
-
-		ritual1Candles.addBlock(new BlockPos(-2, 0, -2));
-		ritual1Candles.addBlock(new BlockPos(2, 0, 2));
-		ritual1Candles.addBlock(new BlockPos(2, 0, -2));
-		ritual1Candles.addBlock(new BlockPos(-2, 0, 2));
-		//rituals[0].addGroup(obelisk);
-		rituals[0].addGroup(ritual1Candles);
-		// Obelisk ritual - Dark
-		rituals[1] = new MultiblockStructureDefinition("obelisk_dark");
 	}
 
 	public boolean isActive(){

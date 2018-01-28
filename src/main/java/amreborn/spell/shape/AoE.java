@@ -51,37 +51,38 @@ public class AoE extends SpellShape{
 				appliedToAtLeastOneEntity = true;
 		}
 		
-		BlockPos pos = new BlockPos(x, y, z);
-		
+		BlockPos pos = new BlockPos(x + 0.5, y, z + 0.5);
 		if (side != null) {
 			switch (side) {
 			case UP:
 			case DOWN:
 				if (world.isRemote)
-					spawnAoEParticles(stack, caster, world, x + 0.5f, y + ((side.equals(EnumFacing.DOWN)) ? 0.5f : (target != null ? target.getEyeHeight() : -2.0f)), z + 0.5f, (int)radius);
+					spawnAoEParticles(stack, caster, world, x, y - 0.5, z, (int)radius);
 				int gravityMagnitude = SpellUtils.countModifiers(SpellModifiers.GRAVITY, stack);
 				return applyStageHorizontal(stack, caster, world, pos, side, (int)Math.floor(radius), gravityMagnitude, giveXP);
 			case NORTH:
 			case SOUTH:
 				if (world.isRemote)
-					spawnAoEParticles(stack, caster, world, x + 0.5f, y - 1, z + 0.5f, (int)radius);
+					spawnAoEParticles(stack, caster, world, x, y - 1, z, (int)radius);
 				return applyStageVerticalZ(stack, caster, world, pos, side, (int)Math.floor(radius), giveXP);
 			case EAST:
 			case WEST:
 				if (world.isRemote)
-					spawnAoEParticles(stack, caster, world, x + 0.5f, y - 1, z + 0.5f, (int)radius);
+					spawnAoEParticles(stack, caster, world, x, y - 1, z, (int)radius);
 				return applyStageVerticalX(stack, caster, world, pos, side, (int)Math.floor(radius), giveXP);
 			}
 		} else {
 			if (world.isRemote)
-				spawnAoEParticles(stack, caster, world, x, y - 1, z, (int)radius);
+				spawnAoEParticles(stack, caster, world, x, y - 1, z + 0.5, (int)radius);
 			int gravityMagnitude = SpellUtils.countModifiers(SpellModifiers.GRAVITY, stack);
 			return applyStageHorizontal(stack, caster, world, pos, null, (int)Math.floor(radius), gravityMagnitude, giveXP);
 		}
 
 		if (appliedToAtLeastOneEntity){
+			System.out.println("rff5");
+
 			if (world.isRemote)
-				spawnAoEParticles(stack, caster, world, x, y + 1, z, (int)radius);
+				spawnAoEParticles(stack, caster, world, x + 0.5, y + 1, z + 0.5, (int)radius);
 			return SpellCastResult.SUCCESS;
 		}
 

@@ -42,7 +42,7 @@ public class AMRecipes {
 			'S', "stone"
 		}));
 		
-		ObeliskFuelHelper.instance.registerFuelType(new ItemStack(ItemDefs.itemOre, 0, ItemOre.META_VINTEUM), 200);
+		ObeliskFuelHelper.instance.registerFuelType(new ItemStack(ItemDefs.itemOre, 1, ItemOre.META_VINTEUM), 200);
 		ObeliskFuelHelper.instance.registerFuelType(UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockDefs.purified_liquid_essence), 2000);
 
 		List<IRecipe> recipes = CraftingManager.getInstance().getRecipeList();

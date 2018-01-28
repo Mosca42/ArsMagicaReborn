@@ -83,7 +83,8 @@ public enum TeleportationManager {
 		private static final String ID = ArsMagicaReborn.MODID + ":teleporter";
 
 		public static void save() {
-			instance.markDirty();
+			if (instance != null)
+				instance.markDirty();
 		}
 
 		public static void load(FMLServerStartingEvent event) {

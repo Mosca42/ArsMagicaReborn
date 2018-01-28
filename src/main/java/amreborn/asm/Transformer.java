@@ -95,7 +95,7 @@ public class Transformer implements IClassTransformer {
 					InsnList toAdd = new InsnList();
 					toAdd.add(new LabelNode());
 					toAdd.add(new VarInsnNode(ALOAD, 0));
-					toAdd.add(new MethodInsnNode(INVOKESTATIC, "am2/api/event/PotionEvent$EventPotionLoaded", "post", "(Lnet/minecraft/potion/PotionEffect;Lnet/minecraft/nbt/NBTTagCompound;)Lnet/minecraft/potion/PotionEffect;", false));
+					toAdd.add(new MethodInsnNode(INVOKESTATIC, "amreborn/api/event/PotionEvent$EventPotionLoaded", "post", "(Lnet/minecraft/potion/PotionEffect;Lnet/minecraft/nbt/NBTTagCompound;)Lnet/minecraft/potion/PotionEffect;", false));
 					AbstractInsnNode ain = (AbstractInsnNode) iter.next();
 					if (ain != null && ain.getOpcode() == ARETURN && ain.getPrevious().getOpcode() != ACONST_NULL) {
 						mn.instructions.insertBefore(ain, toAdd);
@@ -123,7 +123,7 @@ public class Transformer implements IClassTransformer {
 					toAdd.add(new VarInsnNode(ALOAD, 7));
 					toAdd.add(new VarInsnNode(ALOAD, 6));
 					toAdd.add(new MethodInsnNode(INVOKEVIRTUAL, "net/minecraftforge/client/model/obj/OBJModel$Face", "getMaterialName", "()Ljava/lang/String;", false));
-					toAdd.add(new MethodInsnNode(INVOKESTATIC, "am2/api/event/OBJQuadEvent", "post", "(Ljava/lang/String;)I", false));
+					toAdd.add(new MethodInsnNode(INVOKESTATIC, "amreborn/api/event/OBJQuadEvent", "post", "(Ljava/lang/String;)I", false));
 					toAdd.add(new MethodInsnNode(INVOKEVIRTUAL, "net/minecraftforge/client/model/pipeline/UnpackedBakedQuad$Builder", "setQuadTint", "(I)V", false));
 					AbstractInsnNode ain = (AbstractInsnNode) iter.next();
 					if (ain != null && ain instanceof MethodInsnNode && ain.getOpcode() == INVOKESPECIAL && ((MethodInsnNode)ain).owner.equalsIgnoreCase("net/minecraftforge/client/model/pipeline/UnpackedBakedQuad$Builder")) {
@@ -158,7 +158,7 @@ public class Transformer implements IClassTransformer {
 				while (iter.hasNext()) {
 					InsnList toAdd = new InsnList();
 					toAdd.add(new VarInsnNode(ALOAD, 0));
-					toAdd.add(new MethodInsnNode(INVOKESTATIC, "am2/utils/EntityUtils", "correctLook", "(Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/math/Vec3d;", false));
+					toAdd.add(new MethodInsnNode(INVOKESTATIC, "amreborn/utils/EntityUtils", "correctLook", "(Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/math/Vec3d;", false));
 					AbstractInsnNode ain = (AbstractInsnNode) iter.next();
 					if (ain != null && ain.getOpcode() == ARETURN) {
 						LogHelper.info("Core: Located target ARETURN insn node");
@@ -186,7 +186,7 @@ public class Transformer implements IClassTransformer {
 					if (ain != null && ain.getOpcode() == FRETURN) {
 						InsnList toAdd = new InsnList();
 						toAdd.add(new VarInsnNode(ALOAD, 0));
-						toAdd.add(new MethodInsnNode(INVOKESTATIC, "am2/utils/EntityUtils", "correctEyePos", "(FLnet/minecraft/entity/Entity;)F", false));
+						toAdd.add(new MethodInsnNode(INVOKESTATIC, "amreborn/utils/EntityUtils", "correctEyePos", "(FLnet/minecraft/entity/Entity;)F", false));
 						LogHelper.info("Core: Located target ARETURN insn node");
 						mn.instructions.insertBefore(ain, toAdd);
 					}
@@ -209,10 +209,10 @@ public class Transformer implements IClassTransformer {
 					LogHelper.info("Patching addPotionEffect");
 					String className = "net/minecraft/potion/PotionEffect;";
 					InsnList list = new InsnList();
-					list.add(new TypeInsnNode(NEW, "am2/api/event/PotionEvent$EventPotionAdded"));
+					list.add(new TypeInsnNode(NEW, "amreborn/api/event/PotionEvent$EventPotionAdded"));
 					list.add(new InsnNode(DUP));
 					list.add(new VarInsnNode(ALOAD, 1));
-					list.add(new MethodInsnNode(INVOKESPECIAL, "am2/api/event/PotionEvent$EventPotionAdded", "<init>", "(L" + className + ")V", false));
+					list.add(new MethodInsnNode(INVOKESPECIAL, "amreborn/api/event/PotionEvent$EventPotionAdded", "<init>", "(L" + className + ")V", false));
 					list.add(new VarInsnNode(ASTORE, 2));
 					list.add(new LabelNode());
 					list.add(new FieldInsnNode(GETSTATIC, "net/minecraftforge/common/MinecraftForge", "EVENT_BUS", "Lnet/minecraftforge/fml/common/eventhandler/EventBus;"));
@@ -221,7 +221,7 @@ public class Transformer implements IClassTransformer {
 					list.add(new InsnNode(POP));
 					list.add(new LabelNode());
 					list.add(new VarInsnNode(ALOAD, 2));
-					list.add(new MethodInsnNode(INVOKEVIRTUAL, "am2/api/event/PotionEvent$EventPotionAdded", "getEffect", "()L" + className, false));
+					list.add(new MethodInsnNode(INVOKEVIRTUAL, "amreborn/api/event/PotionEvent$EventPotionAdded", "getEffect", "()L" + className, false));
 					list.add(new VarInsnNode(ASTORE, 1));
 					ListIterator<AbstractInsnNode> insns = mn.instructions.iterator();
 					while (insns.hasNext()) {
@@ -247,7 +247,7 @@ public class Transformer implements IClassTransformer {
 			method.instructions.add(new VarInsnNode(FLOAD, 2));
 			method.instructions.add(new VarInsnNode(FLOAD, 3));
 			method.instructions.add(new VarInsnNode(ALOAD, 0));
-			method.instructions.add(new MethodInsnNode(INVOKESTATIC, "am2/utils/EntityUtils", "correctMouvement", "(FFFLnet/minecraft/entity/Entity;)Z", false));
+			method.instructions.add(new MethodInsnNode(INVOKESTATIC, "amreborn/utils/EntityUtils", "correctMouvement", "(FFFLnet/minecraft/entity/Entity;)Z", false));
 			method.instructions.add(new JumpInsnNode(IFNE, endNode));
 			method.instructions.add(new LabelNode());
 			method.instructions.add(new VarInsnNode(ALOAD, 0));
@@ -315,7 +315,7 @@ public class Transformer implements IClassTransformer {
 				}
 
 				if (target != null){
-					MethodInsnNode callout = new MethodInsnNode(INVOKESTATIC, "am2/gui/AMGuiHelper", "overrideKeyboardInput", "()V", false);
+					MethodInsnNode callout = new MethodInsnNode(INVOKESTATIC, "amreborn/gui/AMGuiHelper", "overrideKeyboardInput", "()V", false);
 					mn.instructions.insert(target, callout);
 					LogHelper.info("Core: Success!  Inserted operations!");
 					break;
@@ -353,7 +353,7 @@ public class Transformer implements IClassTransformer {
 
 		String method2_searchinstruction_desc = "(Ljava/lang/String;)V";
 
-		// we will be inserting a call to am2.guis.AMGuiHelper.overrideMouseInput()
+		// we will be inserting a call to amreborn.guis.AMGuiHelper.overrideMouseInput()
 		// description (Lnet/minecraft/client/renderer/EntityRenderer;FZ)Z
 		
 		for (MethodNode mn : cn.methods){
@@ -384,14 +384,14 @@ public class Transformer implements IClassTransformer {
 				}
 				if (orientCameraNode != null){
 					VarInsnNode floatset = new VarInsnNode(FLOAD, 1);
-					MethodInsnNode callout = new MethodInsnNode(INVOKESTATIC, "am2/gui/AMGuiHelper", "shiftView", "(F)V", false);
+					MethodInsnNode callout = new MethodInsnNode(INVOKESTATIC, "amreborn/gui/AMGuiHelper", "shiftView", "(F)V", false);
 					mn.instructions.insert(orientCameraNode, callout);
 					mn.instructions.insert(orientCameraNode, floatset);
 					LogHelper.info("Core: Success!  Inserted callout function op (shift)!");
 				}
 				if (gluPerspectiveNode != null){
 					VarInsnNode floatset = new VarInsnNode(FLOAD, 1);
-					MethodInsnNode callout = new MethodInsnNode(INVOKESTATIC, "am2/gui/AMGuiHelper", "flipView", "(F)V", false);
+					MethodInsnNode callout = new MethodInsnNode(INVOKESTATIC, "amreborn/gui/AMGuiHelper", "flipView", "(F)V", false);
 					mn.instructions.insert(gluPerspectiveNode, callout);
 					mn.instructions.insert(gluPerspectiveNode, floatset);
 					LogHelper.info("Core: Success!  Inserted callout function op (flip)!");
@@ -431,7 +431,7 @@ public class Transformer implements IClassTransformer {
 					VarInsnNode aLoad = new VarInsnNode(ALOAD, 0);
 					VarInsnNode fLoad = new VarInsnNode(FLOAD, 1);
 					VarInsnNode iLoad = new VarInsnNode(ILOAD, iRegister);
-					MethodInsnNode callout = new MethodInsnNode(INVOKESTATIC, "am2/gui/AMGuiHelper", "overrideMouseInput", "(Lnet/minecraft/client/renderer/EntityRenderer;FZ)Z", false);
+					MethodInsnNode callout = new MethodInsnNode(INVOKESTATIC, "amreborn/gui/AMGuiHelper", "overrideMouseInput", "(Lnet/minecraft/client/renderer/EntityRenderer;FZ)Z", false);
 					VarInsnNode iStore = new VarInsnNode(ISTORE, iRegister);
 
 					mn.instructions.insert(target, iStore);

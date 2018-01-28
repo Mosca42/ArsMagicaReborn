@@ -32,7 +32,7 @@ public class ArsMagicaReborn {
 	
 	public static final String MODID = "arsmagicareborn";
 	public static final String VERSION = "GRADLE:VERSION" + "GRADLE:BUILD";
-	public static final String GUIFACTORY = "am2.config.AMGuiFactory";
+	public static final String GUIFACTORY = "amreborn.config.AMGuiFactory";
 	public static SimpleNetworkWrapper network;
 	
 	@SidedProxy(clientSide="amreborn.proxy.ClientProxy", serverSide="amreborn.proxy.CommonProxy", modId=MODID)
@@ -57,10 +57,10 @@ public class ArsMagicaReborn {
 	public void preInit (FMLPreInitializationEvent e) {
 		configDir = new File(e.getModConfigurationDirectory(), "ArsMagicaReborn");
 		config = new AMConfig(new File(configDir, "amreborn.cfg"));
-		//config = new AMConfig(new File(e.getModConfigurationDirectory() + "\\ArsMagicaReborn\\am2.cfg"));
+		//config = new AMConfig(new File(e.getModConfigurationDirectory() + "\\ArsMagicaReborn\\ArsMagicaReborn.cfg"));
 		disabledSkills = new SpellPartConfiguration(new File(configDir, "skills.cfg"));
 		proxy.preInit();
-		network = NetworkRegistry.INSTANCE.newSimpleChannel("AM2");
+		network = NetworkRegistry.INSTANCE.newSimpleChannel("ArsMagicaReborn");
 		network.registerMessage(MessageBoolean.IceBridgeHandler.class, MessageBoolean.class, 1, Side.SERVER);
 		network.registerMessage(MessageCapabilities.class, MessageCapabilities.class, 3, Side.SERVER);
 	}

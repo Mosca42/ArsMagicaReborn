@@ -85,7 +85,7 @@ public class ArsMagicaAPI {
 		String modid = ArsMagicaReborn.MODID;
 		if (current != null)
 			modid = current.getModId();
-		return modid;
+				return modid;
 	}
 	
     public static class ObjectCallbacks<T extends IForgeRegistryEntry<T>> implements IForgeRegistry.AddCallback<T>,IForgeRegistry.ClearCallback<T>,IForgeRegistry.CreateCallback<T>

@@ -1,7 +1,10 @@
 package amreborn.blocks;
 
+import java.util.Random;
+
 import amreborn.ArsMagicaReborn;
 import amreborn.blocks.tileentity.TileEntityTeleporter;
+import amreborn.defs.BlockDefs;
 import amreborn.defs.CreativeTabsDefs;
 import amreborn.defs.ItemDefs;
 import amreborn.items.ItemBlockSubtypes;
@@ -19,6 +22,7 @@ import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -41,6 +45,15 @@ public class BlockTeleporterAutel extends Block implements ITileEntityProvider {
 	@Override
 	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileEntityTeleporter();
+	}
+
+	@SideOnly(Side.CLIENT)
+	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
+		super.randomDisplayTick(stateIn, worldIn, pos, rand);
+			worldIn.spawnParticle(EnumParticleTypes.DRAGON_BREATH, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.0D, (double) pos.getZ() + 0.5D, 0, 0.02, 0, 0);
+			worldIn.spawnParticle(EnumParticleTypes.DRAGON_BREATH, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.0D, (double) pos.getZ() + 0.5D, 0, 0.02, 0, 0);
+			worldIn.spawnParticle(EnumParticleTypes.DRAGON_BREATH, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.0D, (double) pos.getZ() + 0.5D, 0, 0.02, 0, 0);
+
 	}
 
 	@Override

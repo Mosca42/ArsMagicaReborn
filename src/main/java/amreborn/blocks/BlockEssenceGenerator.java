@@ -17,6 +17,7 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -24,11 +25,14 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.internal.FMLNetworkHandler;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockEssenceGenerator extends BlockAMPowered implements ITileEntityProvider {
 
@@ -57,6 +61,36 @@ public class BlockEssenceGenerator extends BlockAMPowered implements ITileEntity
 		case NEXUS_DARK:
 			setBlockBounds(0.0f, 0.5f, 0.0f, 1.0f, 2f, 1.0f);
 			break;
+		}
+	}
+
+	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
+		this.setDefaultFacing(worldIn, pos, state);
+	}
+
+	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+		return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
+	}
+
+	private void setDefaultFacing(World worldIn, BlockPos pos, IBlockState state) {
+		if (!worldIn.isRemote) {
+			IBlockState iblockstate = worldIn.getBlockState(pos.north());
+			IBlockState iblockstate1 = worldIn.getBlockState(pos.south());
+			IBlockState iblockstate2 = worldIn.getBlockState(pos.west());
+			IBlockState iblockstate3 = worldIn.getBlockState(pos.east());
+			EnumFacing enumfacing = (EnumFacing) state.getValue(FACING);
+
+			if (enumfacing == EnumFacing.NORTH && iblockstate.isFullBlock() && !iblockstate1.isFullBlock()) {
+				enumfacing = EnumFacing.SOUTH;
+			} else if (enumfacing == EnumFacing.SOUTH && iblockstate1.isFullBlock() && !iblockstate.isFullBlock()) {
+				enumfacing = EnumFacing.NORTH;
+			} else if (enumfacing == EnumFacing.WEST && iblockstate2.isFullBlock() && !iblockstate3.isFullBlock()) {
+				enumfacing = EnumFacing.EAST;
+			} else if (enumfacing == EnumFacing.EAST && iblockstate3.isFullBlock() && !iblockstate2.isFullBlock()) {
+				enumfacing = EnumFacing.WEST;
+			}
+
+			worldIn.setBlockState(pos, state.withProperty(FACING, enumfacing), 2);
 		}
 	}
 
@@ -99,7 +133,7 @@ public class BlockEssenceGenerator extends BlockAMPowered implements ITileEntity
 	public int getLightOpacity(IBlockState state, IBlockAccess world, BlockPos pos) {
 		return 0;
 	}
-	
+
 	private TileEntityObelisk getTileEntity(IBlockAccess blockAccess, BlockPos pos) {
 		TileEntity te = blockAccess.getTileEntity(pos);
 		if (te != null && te instanceof TileEntityObelisk) {
@@ -118,6 +152,36 @@ public class BlockEssenceGenerator extends BlockAMPowered implements ITileEntity
 		return 1;
 	}
 
+	@SideOnly(Side.CLIENT)
+	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
+		super.randomDisplayTick(stateIn, worldIn, pos, rand);
+
+		for (int i = -1; i <= 1; ++i) {
+
+			for (int k = 0; k <= 2; ++k) {
+				BlockPos blockpos = pos.add(i, k, pos.getZ());
+				if (this == BlockDefs.obelisk)
+					worldIn.spawnParticle(EnumParticleTypes.ENCHANTMENT_TABLE, (double) pos.getX() + 0.5D, (double) pos.getY() + 5.0D, (double) pos.getZ() + 0.5D, (double) ((float) i), (double) ((float) k), (double) ((float) i), 0);
+				else if (this == BlockDefs.celestialPrism)
+					worldIn.spawnParticle(EnumParticleTypes.ENCHANTMENT_TABLE, (double) pos.getX() + 0.5D, (double) pos.getY() + 3.0D, (double) pos.getZ() + 0.5D, (double) ((float) i), (double) ((float) k), (double) ((float) i), 0);
+			}
+
+		}
+		
+		for (int i = -1; i <= 1; ++i) {
+
+			for (int k = 0; k <= 1; ++k) {
+				BlockPos blockpos = pos.add(i, k, pos.getZ());
+				if (this == BlockDefs.obelisk)
+					worldIn.spawnParticle(EnumParticleTypes.ENCHANTMENT_TABLE, (double) pos.getX() + 0.5D, (double) pos.getY() + 5.0D, (double) pos.getZ() + 0.5D, (double) ((float) i), (double) ((float) k), (double) ((float) i), 0);
+				else if (this == BlockDefs.celestialPrism)
+					worldIn.spawnParticle(EnumParticleTypes.ENCHANTMENT_TABLE, (double) pos.getX() + 0.5D, (double) pos.getY() + 3.0D, (double) pos.getZ() + 0.5D, (double) ((float) i), (double) ((float) k) - 0.5, (double) ((float) i), 0);
+			}
+
+		}
+
+	}
+
 	@Override
 	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
 		ArrayList<ItemStack> drops = new ArrayList<ItemStack>();
@@ -131,23 +195,19 @@ public class BlockEssenceGenerator extends BlockAMPowered implements ITileEntity
 	@Override
 	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, Entity entityIn, boolean p_185477_7_) {
 		super.addCollisionBoxToList(state, worldIn, pos, entityBox, collidingBoxes, entityIn, p_185477_7_);
-        addCollisionBoxToList(pos, entityBox, collidingBoxes, state.getCollisionBoundingBox(worldIn, pos));
+		addCollisionBoxToList(pos, entityBox, collidingBoxes, state.getCollisionBoundingBox(worldIn, pos));
 	}
 
-    protected static void addCollisionBoxToList(BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable AxisAlignedBB blockBox)
-    {
-        if (blockBox != NULL_AABB)
-        {
-            AxisAlignedBB axisalignedbb = blockBox.offset(new BlockPos(pos.getX(), pos.getY() + 4, pos.getZ()));
+	protected static void addCollisionBoxToList(BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable AxisAlignedBB blockBox) {
+		if (blockBox != NULL_AABB) {
+			AxisAlignedBB axisalignedbb = blockBox.offset(new BlockPos(pos.getX(), pos.getY() + 4, pos.getZ()));
 
-            if (entityBox.intersectsWith(axisalignedbb))
-            {
-                collidingBoxes.add(axisalignedbb);
-            }
-        }
-    }
+			if (entityBox.intersectsWith(axisalignedbb)) {
+				collidingBoxes.add(axisalignedbb);
+			}
+		}
+	}
 
-	
 	@Override
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 		return super.getCollisionBoundingBox(blockState, worldIn, pos);

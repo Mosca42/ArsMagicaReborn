@@ -17,7 +17,6 @@ public class ObeliskFuelHelper implements IObeliskFuelHelper {
 
 	@Override
 	public void registerFuelType(ItemStack stack, int burnTime) {
-		//stack.setCount(1);
 		validFuels.put(stack.copy(), burnTime);
 	}
 

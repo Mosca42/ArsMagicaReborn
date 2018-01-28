@@ -1,6 +1,8 @@
 package amreborn.models;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.FileSystem;
@@ -13,29 +15,38 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
+import com.google.common.base.Charsets;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 import amreborn.ArsMagicaReborn;
 import amreborn.api.ArsMagicaAPI;
 import amreborn.api.affinity.Affinity;
+import amreborn.items.rendering.SpellModel;
+import amreborn.utils.ModelUtils;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.resources.IResource;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.model.ICustomModelLoader;
 import net.minecraftforge.client.model.IModel;
+import net.minecraftforge.client.model.ItemLayerModel.Loader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
+import net.minecraftforge.fml.common.LoaderState;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class ArsMagicaModelLoader implements ICustomModelLoader {
-	
+
 	public static final HashMap<Affinity, TextureAtlasSprite> sprites = new HashMap<>();
 	public static final HashMap<String, TextureAtlasSprite> particles = new HashMap<>();
 	public static final List<ResourceLocation> spellIcons = getResourceListing();
-	
+
 	@Override
 	public void onResourceManagerReload(IResourceManager resourceManager) {
 		sprites.clear();
@@ -43,32 +54,31 @@ public class ArsMagicaModelLoader implements ICustomModelLoader {
 
 	@Override
 	public boolean accepts(ResourceLocation modelLocation) {
-		return modelLocation.toString().contains("spells/icons");
+
+		return modelLocation.toString().contains("spells/icons/");
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public IModel loadModel(ResourceLocation modelLocation) throws Exception {
-//		if (!Loader.instance().hasReachedState(LoaderState.POSTINITIALIZATION)) {
-//			return ModelLoaderRegistry.getMissingModel();
-//		}
-//		try {
-//		    ImmutableList.Builder<ResourceLocation> builder = ImmutableList.builder();
-//		    IResource iresource =
-//	        Minecraft.getMinecraft().getResourceManager()
-//	                 .getResource(new ResourceLocation(modelLocation.getResourceDomain(), modelLocation.getResourcePath() + ".json"));
-//		    Reader reader = new InputStreamReader(iresource.getInputStream(), Charsets.UTF_8);
-//		    for (String s : ((Map<String,String>) ModelUtils.GSON.fromJson(reader, ModelUtils.mapType)).values()) {
-//				builder.add(new ResourceLocation(s));
-//			}
-//			IModel model = new SpellModel(builder.build());
-//			return model;
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
+		if (!net.minecraftforge.fml.common.Loader.instance().hasReachedState(LoaderState.POSTINITIALIZATION)) {
+			return ModelLoaderRegistry.getMissingModel();
+		}
+		try {
+			ImmutableList.Builder<ResourceLocation> builder = ImmutableList.builder();
+			IResource iresource = Minecraft.getMinecraft().getResourceManager().getResource(new ResourceLocation(modelLocation.getResourceDomain(), modelLocation.getResourcePath() + ".json"));
+			Reader reader = new InputStreamReader(iresource.getInputStream(), Charsets.UTF_8);
+			for (String s : ((Map<String, String>) ModelUtils.GSON.fromJson(reader, ModelUtils.mapType)).values()) {
+				builder.add(new ResourceLocation(s));
+			}
+			IModel model = new SpellModel(builder.build());
+			return model;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return ModelLoaderRegistry.getMissingModel();
 	}
-	
+
 	@SubscribeEvent
 	public void preStitch(TextureStitchEvent.Pre e) {
 		for (Affinity aff : ArsMagicaAPI.getAffinityRegistry().getValues()) {
@@ -111,49 +121,53 @@ public class ArsMagicaModelLoader implements ICustomModelLoader {
 			e.getMap().registerSprite(new ResourceLocation(aff.getRegistryName().getResourceDomain(), "blocks/runes/rune_" + aff.getRegistryName().getResourcePath()));
 		}
 	}
-	
+
 	private void registerParticle(TextureMap map, String name) {
 		map.registerSprite(new ResourceLocation(ArsMagicaReborn.MODID, "items/particles/" + name));
 		particles.put(name, map.getTextureExtry(new ResourceLocation(ArsMagicaReborn.MODID, "items/particles/" + name).toString()));
 	}
-	
+
 	private static final String iconsPath = "/assets/" + ArsMagicaReborn.MODID + "/textures/items/spells/icons/";
 	private static final String iconsPrefix = "items/spells/icons/";
 
-	public static List<ResourceLocation> getResourceListing(){
+	public static List<ResourceLocation> getResourceListing() {
 		ArrayList<ResourceLocation> toReturn = new ArrayList<>();
 		try {
 			URI uri = ArsMagicaReborn.class.getResource(iconsPath).toURI();
 			Path myPath;
-			if (uri.getScheme().equals("jar")){
+			if (uri.getScheme().equals("jar")) {
 				FileSystem fs = FileSystems.newFileSystem(uri, Collections.<String, Object>emptyMap());
 				myPath = fs.getPath(iconsPath);
 				toReturn = processDirectory(myPath, fs);
 				fs.close();
 				return toReturn;
-			}else{
+			} else {
 				myPath = Paths.get(uri);
 				toReturn = processDirectory(myPath, FileSystems.getDefault());
 				return toReturn;
 			}
-		} catch (URISyntaxException e){
+		} catch (URISyntaxException e) {
 			e.printStackTrace();
-		} catch(IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return Lists.newArrayList();
 	}
 
-	private static ArrayList<ResourceLocation> processDirectory(Path dir, FileSystem fs){
+	private static ArrayList<ResourceLocation> processDirectory(Path dir, FileSystem fs) {
 		ArrayList<ResourceLocation> toReturn = new ArrayList<>();
 		try {
 			Stream<Path> walk = Files.walk(dir, 1);
-			for(Iterator<Path> file = walk.iterator(); file.hasNext();){
+			for (Iterator<Path> file = walk.iterator(); file.hasNext();) {
 				String name = file.next().toString();
-				if (name.lastIndexOf(fs.getSeparator()) + 1 > name.length()) continue;
+				if (name.lastIndexOf(fs.getSeparator()) + 1 > name.length())
+					continue;
 				name = name.substring(name.lastIndexOf(fs.getSeparator()) + 1);
-				if (name.equals("")) continue;
-				toReturn.add(new ResourceLocation(ArsMagicaReborn.MODID + ":" + iconsPrefix + name.replace(".png", "")));
+				if (name.equals(""))
+					continue;
+					if (!name.contains("icons"))
+						if (!name.contains("spell icon v1"))
+						toReturn.add(new ResourceLocation(ArsMagicaReborn.MODID + ":" + iconsPrefix + name.replace(".png", "")));
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

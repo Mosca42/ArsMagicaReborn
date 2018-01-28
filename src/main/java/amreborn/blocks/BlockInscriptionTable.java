@@ -25,77 +25,93 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.internal.FMLNetworkHandler;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class BlockInscriptionTable extends BlockAMSpecialRenderContainer{
-	
-	public static final PropertyEnum<EnumFacing> FACING = PropertyEnum.create("facing", EnumFacing.class, EnumFacing.HORIZONTALS);
-	public static final PropertyBool LEFT = PropertyBool.create("left");
-	public static final PropertyBool TIER_1 = PropertyBool.create("tier_1");
-	public static final PropertyBool TIER_2 = PropertyBool.create("tier_2");
-	public static final PropertyBool TIER_3 = PropertyBool.create("tier_3");
-	
-	public BlockInscriptionTable(){
-		super(Material.WOOD);
+public class BlockInscriptionTable extends BlockAMSpecialRenderContainer {
 
-		//setTextureFile(AMCore.proxy.getOverrideBlockTexturePath());
+	public static final PropertyEnum<EnumFacing> FACING = PropertyEnum.create("facing", EnumFacing.class, EnumFacing.HORIZONTALS);
+
+	public BlockInscriptionTable() {
+		super(Material.WOOD);
 		setHardness(2.0f);
 		setResistance(2.0f);
-		setLightLevel(0.8f);
-		this.setBlockBounds(0.0f, 0.0f, 0.0f, 1.0f, 1.3f, 1.0f);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(LEFT, false).withProperty(TIER_1, false).withProperty(TIER_2, false).withProperty(TIER_3, false));
+		setLightLevel(0.4f);
+		this.setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 	}
-	
 
-	
 	@Override
-	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-		BlockPos placePos = pos.offset(state.getValue(FACING));
-		if (worldIn.isAirBlock(placePos) || worldIn.getBlockState(placePos).getBlock().isReplaceable(worldIn, placePos))
-			worldIn.setBlockState(pos.offset(state.getValue(FACING)), state.withProperty(LEFT, true), 3);
-		else
-			worldIn.setBlockToAir(pos);
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, FACING);
 	}
-	
+
+	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
+		this.setDefaultFacing(worldIn, pos, state);
+	}
+
+	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+		return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
+	}
+
+	private void setDefaultFacing(World worldIn, BlockPos pos, IBlockState state) {
+		if (!worldIn.isRemote) {
+			IBlockState iblockstate = worldIn.getBlockState(pos.north());
+			IBlockState iblockstate1 = worldIn.getBlockState(pos.south());
+			IBlockState iblockstate2 = worldIn.getBlockState(pos.west());
+			IBlockState iblockstate3 = worldIn.getBlockState(pos.east());
+			EnumFacing enumfacing = (EnumFacing) state.getValue(FACING);
+
+			if (enumfacing == EnumFacing.NORTH && iblockstate.isFullBlock() && !iblockstate1.isFullBlock()) {
+				enumfacing = EnumFacing.SOUTH;
+			} else if (enumfacing == EnumFacing.SOUTH && iblockstate1.isFullBlock() && !iblockstate.isFullBlock()) {
+				enumfacing = EnumFacing.NORTH;
+			} else if (enumfacing == EnumFacing.WEST && iblockstate2.isFullBlock() && !iblockstate3.isFullBlock()) {
+				enumfacing = EnumFacing.EAST;
+			} else if (enumfacing == EnumFacing.EAST && iblockstate3.isFullBlock() && !iblockstate2.isFullBlock()) {
+				enumfacing = EnumFacing.WEST;
+			}
+
+			worldIn.setBlockState(pos, state.withProperty(FACING, enumfacing), 2);
+		}
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return state.getValue(FACING).ordinal() - 2;
+	}
+
+	public IBlockState getStateFromMeta(int meta) {
+		return getDefaultState().withProperty(FACING, EnumFacing.values()[meta + 2]);
+	}
+
 	@Override
 	public int getLightValue(IBlockState state) {
 		return 12;
 	}
-	
+
 	@Override
 	public EnumBlockRenderType getRenderType(IBlockState state) {
 		return EnumBlockRenderType.MODEL;
 	}
-	
 
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
-		if (worldIn.isRemote){
+		if (worldIn.isRemote) {
 			return true;
 		}
 
-		TileEntityInscriptionTable te = (TileEntityInscriptionTable)worldIn.getTileEntity(pos);
+		TileEntityInscriptionTable te = (TileEntityInscriptionTable) worldIn.getTileEntity(pos);
 		TileEntityInscriptionTable tealt = te;
-
-		if (te != null){
-			if (!state.getValue(LEFT)){
-				pos = pos.offset(state.getValue(FACING));
-				te = (TileEntityInscriptionTable)worldIn.getTileEntity(pos);
-			}else{
-				tealt = (TileEntityInscriptionTable)worldIn.getTileEntity(pos.offset(state.getValue(FACING).getOpposite()));
-			}
-		}
 
 		if (te == null)
 			return true;
-		
-		if (te.isInUse(playerIn)){
+
+		if (te.isInUse(playerIn)) {
 			playerIn.sendMessage(new TextComponentString("Someone else is using this."));
 			return true;
 		}
 
 		ItemStack curItem = playerIn.getHeldItem(hand);
-		if (curItem != ItemStack.EMPTY && curItem.getItem() == ItemDefs.inscriptionUpgrade){
-			if (te.getUpgradeState() == curItem.getItemDamage()){
+		if (curItem != ItemStack.EMPTY && curItem.getItem() == ItemDefs.inscriptionUpgrade) {
+			if (te.getUpgradeState() == curItem.getItemDamage()) {
 				playerIn.inventory.setInventorySlotContents(playerIn.inventory.currentItem, ItemStack.EMPTY);
 				te.incrementUpgradeState();
 				tealt.incrementUpgradeState();
@@ -107,31 +123,23 @@ public class BlockInscriptionTable extends BlockAMSpecialRenderContainer{
 
 		return true;
 	}
-	
+
 	@Override
-	public TileEntity createNewTileEntity(World par1World, int i){
+	public TileEntity createNewTileEntity(World par1World, int i) {
 		return new TileEntityInscriptionTable();
 	}
-	
+
 	@Override
-	public void breakBlock(World world, BlockPos pos, IBlockState state){
-		TileEntityInscriptionTable insc = (TileEntityInscriptionTable)world.getTileEntity(pos);
+	public void breakBlock(World world, BlockPos pos, IBlockState state) {
+		TileEntityInscriptionTable insc = (TileEntityInscriptionTable) world.getTileEntity(pos);
 
-		if (insc == null) return;
-		BlockPos placePos = pos.offset(state.getValue(FACING), state.getValue(LEFT) ? -1 : 1);
+		if (insc == null)
+			return;
 
-		if (world.getBlockState(placePos).getBlock() == this && state.getValue(LEFT)) {
-			breakBlock(world, placePos, state);
-			world.setBlockToAir(placePos);
-		} else if (world.getBlockState(placePos).getBlock() == this) {
-			super.breakBlock(world, placePos, state);
-			world.setBlockToAir(placePos);			
-		}
-
-		if (!world.isRemote && !state.getValue(LEFT)){
-			for (int l = 0; l < insc.getSizeInventory(); l++){
+		if (!world.isRemote) {
+			for (int l = 0; l < insc.getSizeInventory(); l++) {
 				ItemStack itemstack = insc.getStackInSlot(l);
-				if (itemstack == ItemStack.EMPTY){
+				if (itemstack == ItemStack.EMPTY) {
 					continue;
 				}
 				spawnItemOnBreak(world, pos, itemstack);
@@ -145,16 +153,16 @@ public class BlockInscriptionTable extends BlockAMSpecialRenderContainer{
 		super.breakBlock(world, pos, state);
 	}
 
-	private void spawnItemOnBreak(World world, BlockPos pos, ItemStack itemstack){
+	private void spawnItemOnBreak(World world, BlockPos pos, ItemStack itemstack) {
 		float f = world.rand.nextFloat() * 0.8F + 0.1F;
 		float f1 = world.rand.nextFloat() * 0.8F + 0.1F;
 		float f2 = world.rand.nextFloat() * 0.8F + 0.1F;
-		do{
-			if (itemstack.getCount() <= 0){
+		do {
+			if (itemstack.getCount() <= 0) {
 				break;
 			}
 			int i1 = world.rand.nextInt(21) + 10;
-			if (i1 > itemstack.getCount()){
+			if (i1 > itemstack.getCount()) {
 				i1 = itemstack.getCount();
 			}
 			itemstack.shrink(i1);
@@ -162,31 +170,13 @@ public class BlockInscriptionTable extends BlockAMSpecialRenderContainer{
 			newItem.setTagCompound(itemstack.getTagCompound());
 			EntityItem entityitem = new EntityItem(world, pos.getX() + f, pos.getY() + f1, pos.getZ() + f2, newItem);
 			float f3 = 0.05F;
-			entityitem.motionX = (float)world.rand.nextGaussian() * f3;
-			entityitem.motionY = (float)world.rand.nextGaussian() * f3 + 0.2F;
-			entityitem.motionZ = (float)world.rand.nextGaussian() * f3;
+			entityitem.motionX = (float) world.rand.nextGaussian() * f3;
+			entityitem.motionY = (float) world.rand.nextGaussian() * f3 + 0.2F;
+			entityitem.motionZ = (float) world.rand.nextGaussian() * f3;
 			world.spawnEntity(entityitem);
-		}while (true);
+		} while (true);
 	}
-	
-	@Override
-	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, FACING, LEFT, TIER_1, TIER_2, TIER_3);
-	}
-	
-	@Override
-	public int getMetaFromState(IBlockState state) {
-		int meta = state.getValue(FACING).ordinal() - 2;
-		if (state.getValue(LEFT))
-			meta |= 0x8;
-		return meta;
-	}
-	
-	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState().withProperty(FACING, EnumFacing.values()[2 + (meta % 4)]).withProperty(LEFT, (meta & 0x8) == 0x8);
-	}
-	
+
 	@Override
 	public BlockAMContainer registerAndName(ResourceLocation rl) {
 		this.setUnlocalizedName(rl.toString());

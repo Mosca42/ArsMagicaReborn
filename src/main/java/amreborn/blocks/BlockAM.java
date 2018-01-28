@@ -21,6 +21,8 @@ public class BlockAM extends Block {
 	public BlockAM(Material materialIn) {
 		super(materialIn);
 		setCreativeTab(CreativeTabsDefs.tabAM2Blocks);
+		setHardness(5);
+		setResistance(10);
 	}
 
 	public BlockAM(Material blockMaterialIn, MapColor blockMapColorIn) {

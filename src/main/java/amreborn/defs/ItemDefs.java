@@ -59,6 +59,7 @@ import amreborn.items.ItemManaPotion;
 import amreborn.items.ItemManaPotionBundle;
 import amreborn.items.ItemNatureGuardianSickle;
 import amreborn.items.ItemOre;
+import amreborn.items.ItemPurifiedLiquidEssenceBottle;
 import amreborn.items.ItemRune;
 import amreborn.items.ItemRuneBag;
 import amreborn.items.ItemSpellBook;
@@ -148,9 +149,9 @@ public class ItemDefs {
 	public static final ItemBow BoundBow = new ItemBoundBow().registerAndName("bound_bow");
 	public static final ItemShield BoundShield = new ItemBoundShield().registerAndName("bound_shield");
 	public static final ItemManaCake manaCake = new ItemManaCake().registerAndName("mana_cake");
-	public static final Item woodenLeg = new ItemArsMagica().registerAndName("wooden_leg");
+	public static final Item woodenLeg = new ItemArsMagica().registerAndName("wooden_ledddg");
 
-	public static final ItemArrow BoundArrow = new ItemBoundArrow().registerAndName("bound_arrow");
+	public static final ItemArrow BoundArrow = new ItemBoundArrow().registerAndName("bound_arrow"); // TODO DD
 
 	public static final Item natureScythe = new ItemNatureGuardianSickle().registerAndName("nature_scythe");
 	public static final Item winterArm = new ItemWinterGuardianArm().registerAndName("winter_arm");
@@ -373,9 +374,6 @@ public class ItemDefs {
 		}
 		renderItem.getItemModelMesher().register(spell, new SpellRenderer());
 		
-		
-
-
 	}
 
 	public static void initEnchantedItems(){

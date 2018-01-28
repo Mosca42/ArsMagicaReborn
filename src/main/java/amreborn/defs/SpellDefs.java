@@ -307,7 +307,7 @@ public class SpellDefs {
 
 		SpellRegistry.registerSpellComponent("daylight", getComponentTexture("daylight"), SkillPoint.SILVER_POINT, new Daylight(), SkillDefs.TREE_UTILITY, 75, 45);
 		SpellRegistry.registerSpellComponent("moonrise", getComponentTexture("moonrise"), SkillPoint.SILVER_POINT, new Moonrise(), SkillDefs.TREE_UTILITY, 75, 90);
-		SpellRegistry.registerSpellModifier("prosperity", getModifierTexture("Prosperity"), SkillPoint.SILVER_POINT, new Prosperity(), SkillDefs.TREE_UTILITY, 75, 135);
+		SpellRegistry.registerSpellModifier("prosperity", getModifierTexture("prosperity"), SkillPoint.SILVER_POINT, new Prosperity(), SkillDefs.TREE_UTILITY, 75, 135);
 	}
 	
 	private static ResourceLocation getComponentTexture(String name) {

@@ -105,7 +105,6 @@ public class RitualShapeHelper {
 	private void corruptionRitual() {
 		HashMap<Integer, IBlockState> corruptionMap = new HashMap<>();
 		corruptionMap.put(0, BlockDefs.wizardChalk.getDefaultState());
-		corruptionMap.put(1, BlockDefs.wardingCandle.getDefaultState());
 		TypedMultiblockGroup defaultRotation = new TypedMultiblockGroup("defaultRotation", Lists.newArrayList(corruptionMap), true);
 		TypedMultiblockGroup rotated = new TypedMultiblockGroup("rotated", Lists.newArrayList(corruptionMap), true);
 		
@@ -164,7 +163,6 @@ public class RitualShapeHelper {
 	
 	private void purificationRitual() {
 		MultiblockGroup chalks = new MultiblockGroup("chalk", Lists.newArrayList(BlockDefs.wizardChalk.getDefaultState()), true);
-		MultiblockGroup candles = new MultiblockGroup("candle", Lists.newArrayList(BlockDefs.wardingCandle.getDefaultState()), true);
 		chalks.addBlock(new BlockPos(-1, 0, 1));
 		chalks.addBlock(new BlockPos(-1, 0, -1));
 		chalks.addBlock(new BlockPos(1, 0, 1));
@@ -197,13 +195,6 @@ public class RitualShapeHelper {
 		chalks.addBlock(new BlockPos(1, 0, 3));
 		chalks.addBlock(new BlockPos(0, 0, 3));
 		chalks.addBlock(new BlockPos(-1, 0, 3));
-
-		candles.addBlock(new BlockPos(-2, 0, 2));
-		candles.addBlock(new BlockPos(-2, 0, -2));
-		candles.addBlock(new BlockPos(2, 0, 2));
-		candles.addBlock(new BlockPos(2, 0, -2));
-		
-		purification.addGroup(candles);
 		purification.addGroup(chalks);
 	}
 	

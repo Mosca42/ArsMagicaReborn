@@ -177,10 +177,6 @@ public class TileEntityInscriptionTable extends TileEntity implements IInventory
 		return this.currentPlayerUsing;
 	}
 
-	private boolean isRenderingLeft(){
-		return world.getBlockState(pos).getValue(BlockInscriptionTable.LEFT);
-	}
-
 	@Override
 	public void update(){
 		if (world.getBlockState(pos).getBlock() != BlockDefs.inscriptionTable){
@@ -194,17 +190,6 @@ public class TileEntityInscriptionTable extends TileEntity implements IInventory
 		if (!world.isRemote) {
 			boolean shouldSet = false;
 			IBlockState state = world.getBlockState(pos);
-			if (getUpgradeState() >= 1 && !state.getValue(BlockInscriptionTable.TIER_1)) {
-				shouldSet = true;
-			}
-			else if (getUpgradeState() >= 2 && !state.getValue(BlockInscriptionTable.TIER_2)) {
-				shouldSet = true;
-			}
-			else if (getUpgradeState() >= 3 && !state.getValue(BlockInscriptionTable.TIER_3)) {
-				shouldSet = true;
-			}
-			if (shouldSet)
-				this.world.setBlockState(pos, world.getBlockState(pos).withProperty(BlockInscriptionTable.TIER_1, getUpgradeState() >= 1).withProperty(BlockInscriptionTable.TIER_2, getUpgradeState() >= 2).withProperty(BlockInscriptionTable.TIER_3, getUpgradeState() >= 3), 2);
 		}
 		this.markDirty();
 		//worldObj.markAndNotifyBlock(pos, worldObj.getChunkFromBlockCoords(pos), worldObj.getBlockState(pos), worldObj.getBlockState(pos), 3);
@@ -218,7 +203,6 @@ public class TileEntityInscriptionTable extends TileEntity implements IInventory
 	private void candleUpdate(){
 		ticksToNextParticle--;
 
-		if (isRenderingLeft()){
 			if (ticksToNextParticle == 0 || ticksToNextParticle == 15){
 
 				double particleX = 0;
@@ -304,8 +288,7 @@ public class TileEntityInscriptionTable extends TileEntity implements IInventory
 						smoke.setMaxAge(20 + world.rand.nextInt(10));
 					}
 				}
-			}
-
+			
 		}
 	}
 

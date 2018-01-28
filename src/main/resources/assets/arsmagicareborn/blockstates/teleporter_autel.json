@@ -1,0 +1,18 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "beacon": "arsmagicareborn:blocks/mana_drain_top",
+            "obsidian": "blocks/quartz_block_top"
+        },
+        "model": "beacon"
+    },
+    "variants": {
+        "normal": [{
+
+        }],
+        "inventory": [{
+
+        }]
+    }
+}

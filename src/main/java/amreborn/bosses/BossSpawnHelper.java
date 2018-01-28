@@ -89,7 +89,7 @@ public class BossSpawnHelper{
 			pos = pos.south();
 		}
 
-		if (!chalkCircleIsValid(world, pos))
+		if (true)
 			return;
 
 		if (!world.isRemote){
@@ -103,38 +103,6 @@ public class BossSpawnHelper{
 		return (int)(worldTime / 24000L) % 8;
 	}
 
-	private boolean chalkCircleIsValid(World world, BlockPos pos){
-		//check for candles
-		if (world.getBlockState(pos.east(3)).getBlock() != BlockDefs.wardingCandle)
-			return false;
-		if (world.getBlockState(pos.west(3)).getBlock() != BlockDefs.wardingCandle)
-			return false;
-		if (world.getBlockState(pos.north(3)).getBlock() != BlockDefs.wardingCandle)
-			return false;
-		if (world.getBlockState(pos.south(3)).getBlock() != BlockDefs.wardingCandle)
-			return false;
-
-		//check for chalk circle
-		int xOff = -2;
-		int zOff = -2;
-		while (xOff <= 2)
-			if (world.getBlockState(pos.add(xOff++, 0, zOff)).getBlock() != BlockDefs.wizardChalk)
-				return false;
-		xOff--;
-		while (zOff <= 2)
-			if (world.getBlockState(pos.add(xOff, 0, zOff++)).getBlock() != BlockDefs.wizardChalk)
-				return false;
-		zOff--;
-		while (xOff >= -2)
-			if (world.getBlockState(pos.add(xOff--, 0, zOff)).getBlock() != BlockDefs.wizardChalk)
-				return false;
-		xOff++;
-		while (zOff >= -2)
-			if (world.getBlockState(pos.add(xOff, 0, zOff--)).getBlock() != BlockDefs.wizardChalk)
-				return false;
-
-		return true;
-	}
 
 	private void spawnNatureGuardian(World world, double x, double y, double z){
 		if (!world.isRemote){

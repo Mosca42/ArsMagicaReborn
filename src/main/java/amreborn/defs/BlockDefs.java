@@ -13,7 +13,6 @@ import amreborn.blocks.BlockArmorInfuser;
 import amreborn.blocks.BlockArsMagicaBlock;
 import amreborn.blocks.BlockArsMagicaOre;
 import amreborn.blocks.BlockCalefactor;
-import amreborn.blocks.BlockCandle;
 import amreborn.blocks.BlockCraftingAltar;
 import amreborn.blocks.BlockDesertNova;
 import amreborn.blocks.BlockEssenceConduit;
@@ -98,7 +97,6 @@ public class BlockDefs {
 	public static final Block wizardChalk = new BlockWizardsChalk().registerAndName(new ResourceLocation(ArsMagicaReborn.MODID + ":wizard_chalk_block"));
 	public static final Block obelisk = new BlockEssenceGenerator(BlockEssenceGenerator.NEXUS_STANDARD).registerAndName(new ResourceLocation(ArsMagicaReborn.MODID + ":obelisk"));
 	public static final Block celestialPrism = new BlockEssenceGenerator(BlockEssenceGenerator.NEXUS_LIGHT).registerAndName(new ResourceLocation(ArsMagicaReborn.MODID + ":celestial_prism"));
-	public static final Block wardingCandle = new BlockCandle().registerAndName(new ResourceLocation(ArsMagicaReborn.MODID + ":warding_candle"));
 	public static final Block lectern = new BlockLectern().registerAndName(new ResourceLocation(ArsMagicaReborn.MODID + ":lectern"));
 	public static final Block inscriptionTable = new BlockInscriptionTable().registerAndName(new ResourceLocation(ArsMagicaReborn.MODID + ":inscription_table"));
 	public static final Block armorImbuer = new BlockArmorInfuser().registerAndName(new ResourceLocation(ArsMagicaReborn.MODID + ":armor_imbuer"));
@@ -226,7 +224,6 @@ public class BlockDefs {
 		registerTexture(slipstreamGenerator);
 		
 		//Ritual Blocks
-		registerTexture(wardingCandle);
 		//registerTexture(wizardChalk);
 		
 		//Spell Blocks

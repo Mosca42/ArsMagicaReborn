@@ -108,15 +108,14 @@ public class SpellParticleRender extends ItemOverrideList{
 
 		if (mc.player.isPotionActive(Potion.getPotionFromResourceLocation("invisibility"))) return;
 
-		ItemStack scrollStack = null;
+		ItemStack scrollStack = ItemStack.EMPTY;
 		if (item.getItem() instanceof ItemSpellBase){
 			scrollStack = item;
 		}else if (item.getItem() instanceof ItemSpellBook){
 			scrollStack = ((ItemSpellBook)item.getItem()).getActiveScrollInventory(item)[((ItemSpellBook)item.getItem()).GetActiveSlot(item)];
 		}
 
-
-		if (scrollStack == null) return;
+		if (scrollStack == ItemStack.EMPTY) return;
 
 		Affinity affinity = AffinityShiftUtils.getMainShiftForStack(scrollStack);
 
